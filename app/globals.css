@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-black text-ghost-white;
+  }
+  
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #01FFA9 0%, #A97AFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glow-aquamarine {
+    box-shadow: 0 0 20px rgba(1, 255, 169, 0.3);
+  }
+  
+  .glow-indigo {
+    box-shadow: 0 0 20px rgba(169, 122, 255, 0.3);
+  }
+  
+  /* Video specific styles */
+  video {
+    object-fit: cover;
+  }
+  
+  /* Smooth video transitions */
+  video::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+}
