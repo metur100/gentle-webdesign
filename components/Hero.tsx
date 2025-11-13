@@ -45,33 +45,33 @@ const Hero = () => {
     y: Math.random() * 100
   }))
 
-  // Hero title animation sequence
+  // Hero title animation sequence - FASTER
   useEffect(() => {
     async function sequence() {
-      // Start title animation
+      // Start title animation - faster timing
       await titleControls.start({ 
         scale: 1.05, 
         opacity: 1, 
         filter: 'blur(8px)', 
-        transition: { duration: 0.8 } 
+        transition: { duration: 0.6 } // Faster: 0.6s instead of 0.8s
       })
       await titleControls.start({ 
         scale: 0.8, 
         opacity: 1, 
         filter: 'blur(2px)', 
-        transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } 
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } // Faster: 0.7s instead of 0.9s
       })
       await titleControls.start({ 
         scale: 0.96, 
         filter: 'blur(0px)', 
-        transition: { duration: 0.6 } 
+        transition: { duration: 0.4 } // Faster: 0.4s instead of 0.6s
       })
       
-      // Then show the rest of the content
+      // Then show the rest of the content - faster
       await contentControls.start({ 
         opacity: 1, 
         y: 0,
-        transition: { duration: 0.6 }
+        transition: { duration: 0.4 } // Faster: 0.4s instead of 0.6s
       })
     }
     sequence()
@@ -87,43 +87,19 @@ const Hero = () => {
   return (
     <>
       <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-        {/* Unique Background with Geometric Patterns */}
-        <div className="absolute inset-0 z-0">
-          {/* Main Video Background */}
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            onLoadedData={() => setIsVideoLoaded(true)}
-            className={`absolute inset-0 w-full h-full object-cover opacity-20 transition-opacity duration-1000 ${
-              isVideoLoaded ? 'opacity-20' : 'opacity-0'
-            }`}
-          >
-            <source
-              src="https://videos.pexels.com/video-files/855005/855005-uhd_2560_1440_30fps.mp4"
-              type="video/mp4"
-            />
-          </video>
-
-          {/* Enhanced Geometric Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/10 to-black" />
-
-          {/* Hexagon Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-20 left-20 w-32 h-28 bg-aquamarine/10 clip-hexagon" />
-            <div className="absolute bottom-40 right-32 w-24 h-21 bg-tropical-indigo/10 clip-hexagon" />
-            <div className="absolute top-1/2 left-1/2 w-16 h-14 bg-aquamarine/10 clip-hexagon" />
-          </div>
+        {/* Pure Black Background - Removed all background effects */}
+        <div className="absolute inset-0 z-0 bg-black">
+          {/* Removed video background */}
+          {/* Removed gradient overlay */}
+          {/* Removed hexagon pattern */}
         </div>
 
-        {/* Floating Service Tags */}
+        {/* Floating Service Tags - Made more visible */}
         <div className="absolute inset-0 overflow-hidden">
           {floatingServices.map((item, index) => (
             <motion.div
               key={index}
-              className="absolute text-ghost-white/20 text-sm font-light px-3 py-1 rounded-full border border-ghost-white/10 backdrop-blur-sm"
+              className="absolute text-ghost-white/40 text-sm font-light px-3 py-1 rounded-full border border-ghost-white/20 backdrop-blur-sm" // Increased opacity
               style={{
                 left: `${item.x}%`,
                 top: `${item.y}%`,
@@ -131,7 +107,7 @@ const Hero = () => {
               animate={{
                 y: [0, -30, 0],
                 x: [0, 15, 0],
-                opacity: [0.3, 0.6, 0.3],
+                opacity: [0.4, 0.8, 0.4], // Increased opacity range
               }}
               transition={{
                 duration: item.duration,
@@ -145,8 +121,8 @@ const Hero = () => {
           ))}
         </div>
 
-        {/* Connection Lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-10">
+        {/* Connection Lines - Made more visible */}
+        <svg className="absolute inset-0 w-full h-full opacity-20"> {/* Increased opacity */}
           <motion.line
             x1="20%"
             y1="30%"
@@ -181,12 +157,12 @@ const Hero = () => {
           />
           <defs>
             <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#01FFA9" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#A97AFF" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#01FFA9" stopOpacity="0.8" /> {/* Increased opacity */}
+              <stop offset="100%" stopColor="#A97AFF" stopOpacity="0.8" /> {/* Increased opacity */}
             </linearGradient>
             <linearGradient id="gradient2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#A97AFF" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#01FFA9" stopOpacity="0.5" />
+              <stop offset="0%" stopColor="#A97AFF" stopOpacity="0.8" /> {/* Increased opacity */}
+              <stop offset="100%" stopColor="#01FFA9" stopOpacity="0.8" /> {/* Increased opacity */}
             </linearGradient>
           </defs>
         </svg>
@@ -205,29 +181,30 @@ const Hero = () => {
                   style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
                   className="leading-tight"
                 >
-                  <div className="text-ghost-white text-[clamp(5.5rem,10vw,6.5rem)] bg-gradient-to-r from-ghost-white to-ghost-white/80 bg-clip-text text-transparent">
+                  <div className="text-ghost-white text-[clamp(5.5rem,10vw,6.5rem)] bg-gradient-to-r from-ghost-white to-ghost-white/90 bg-clip-text text-transparent">
                     Gentle Webdesign
                   </div>
-                  <div className="text-aquamarine text-[clamp(2.5rem,10vw,5.5rem)] bg-gradient-to-r from-aquamarine to-tropical-indigo bg-clip-text text-transparent">
+                  {/* More visible Digital Solutions text */}
+                  <div className="text-aquamarine text-[clamp(2.5rem,10vw,5.5rem)] bg-gradient-to-r from-aquamarine to-tropical-indigo bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(1,255,169,0.5)]">
                     Digital Solutions
                   </div>
                 </motion.div>
               </div>
 
-              {/* Subtitle */}
+              {/* Subtitle - Made much more visible */}
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={contentControls}
-                className="mt-8 text-ghost-white/75 text-xl md:text-2xl font-medium mb-12"
+                className="mt-8 text-ghost-white/90 text-xl md:text-2xl font-medium mb-12" // Increased opacity to 90%
               >
-                Software development • Interfaces • Motion
+
               </motion.div>
 
-              {/* Description Text */}
+              {/* Description Text - More visible */}
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={contentControls}
-                className="text-2xl md:text-4xl lg:text-2xl text-ghost-white/75 mb-12 leading-relaxed max-w-4xl mx-auto"
+                className="text-2xl md:text-4xl lg:text-2xl text-ghost-white/95 mb-12 leading-relaxed max-w-4xl mx-auto font-medium" // Increased opacity to 95%
               >
                 Wir entwickeln innovative Websites, moderne Webanwendungen, AI-Integrationen und cloud-basierte Lösungen für Ihr Business.
               </motion.p>

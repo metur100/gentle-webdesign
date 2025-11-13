@@ -233,7 +233,7 @@ Gentle Webdesign Team
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
       onClick={closeModal}
     >
       <AnimatePresence mode="wait">
@@ -244,20 +244,20 @@ Gentle Webdesign Team
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="bg-gradient-to-br from-black to-oxford-blue/80 border border-aquamarine/30 rounded-3xl p-6 md:p-8 max-w-2xl w-full relative overflow-hidden max-h-[90vh] overflow-y-auto"
+            className="bg-black border border-aquamarine/30 rounded-3xl p-8 md:p-10 max-w-4xl w-full relative overflow-hidden max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <motion.button
               whileHover={{ scale: 1.1, rotate: 90 }}
               onClick={closeModal}
-              className="absolute top-6 right-6 text-ghost-white/60 hover:text-aquamarine transition-colors z-10"
+              className="absolute top-8 right-8 text-ghost-white/60 hover:text-aquamarine transition-colors z-10"
             >
               <HiX className="text-2xl" />
             </motion.button>
 
             {/* Progress Bar */}
-            <div className="mb-6 flex gap-2">
+            <div className="mb-8 flex gap-2">
               {questions.map((_, index) => (
                 <div
                   key={index}
@@ -269,19 +269,19 @@ Gentle Webdesign Team
             </div>
 
             {/* Question */}
-            <div className="mb-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-ghost-white mb-2 leading-tight">
+            <div className="mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-ghost-white mb-4 leading-tight">
                 {currentQuestion.label}
               </h2>
               {currentQuestion.description && (
-                <p className="text-ghost-white/60 text-sm mb-4">
+                <p className="text-ghost-white/60 text-base md:text-lg mb-6 leading-relaxed">
                   {currentQuestion.description}
                 </p>
               )}
             </div>
 
             {/* Input Field */}
-            <div className="mb-6">
+            <div className="mb-8">
               {currentQuestion.type === 'text' || currentQuestion.type === 'email' ? (
                 <motion.input
                   initial={{ opacity: 0 }}
@@ -295,7 +295,7 @@ Gentle Webdesign Team
                       [currentQuestion.key]: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 bg-black/50 border border-aquamarine/30 rounded-xl text-ghost-white placeholder-ghost-white/40 focus:outline-none focus:border-aquamarine transition-all duration-300 text-base"
+                  className="w-full px-6 py-4 bg-black/50 border border-aquamarine/30 rounded-2xl text-ghost-white placeholder-ghost-white/40 focus:outline-none focus:border-aquamarine transition-all duration-300 text-lg"
                 />
               ) : currentQuestion.type === 'textarea' ? (
                 <motion.textarea
@@ -309,7 +309,7 @@ Gentle Webdesign Team
                       [currentQuestion.key]: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 bg-black/50 border border-aquamarine/30 rounded-xl text-ghost-white placeholder-ghost-white/40 focus:outline-none focus:border-aquamarine transition-all duration-300 text-base h-24 resize-none"
+                  className="w-full px-6 py-4 bg-black/50 border border-aquamarine/30 rounded-2xl text-ghost-white placeholder-ghost-white/40 focus:outline-none focus:border-aquamarine transition-all duration-300 text-lg h-32 resize-none"
                 />
               ) : (
                 <motion.select
@@ -322,11 +322,11 @@ Gentle Webdesign Team
                       [currentQuestion.key]: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 bg-black/50 border border-aquamarine/30 rounded-xl text-ghost-white focus:outline-none focus:border-aquamarine transition-all duration-300 text-base"
+                  className="w-full px-6 py-4 bg-black/50 border border-aquamarine/30 rounded-2xl text-ghost-white focus:outline-none focus:border-aquamarine transition-all duration-300 text-lg"
                 >
                   <option value="">Bitte auswählen...</option>
                   {(currentQuestion as any).options?.map((option: string) => (
-                    <option key={option} value={option} className="bg-oxford-blue">
+                    <option key={option} value={option} className="bg-black text-lg py-2">
                       {option}
                     </option>
                   ))}
@@ -335,13 +335,13 @@ Gentle Webdesign Team
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex gap-3 justify-between pt-4">
+            <div className="flex gap-4 justify-between pt-6">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handlePrev}
                 disabled={step === 0}
-                className="px-6 py-2.5 border border-ghost-white/30 text-ghost-white font-bold rounded-full hover:border-ghost-white/60 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm"
+                className="px-8 py-3 border border-ghost-white/30 text-ghost-white font-bold rounded-full hover:border-ghost-white/60 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-base"
               >
                 Zurück
               </motion.button>
@@ -351,14 +351,14 @@ Gentle Webdesign Team
                 whileTap={{ scale: 0.95 }}
                 onClick={handleNext}
                 disabled={!formData[currentQuestion.key as keyof FormData]}
-                className="px-6 py-2.5 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full hover:shadow-lg hover:shadow-aquamarine/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-sm"
+                className="px-8 py-3 bg-gradient-to-r from-aquamarine to-tropical-indigo text-black font-bold rounded-full hover:shadow-lg hover:shadow-aquamarine/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 text-base"
               >
                 {step === questions.length - 1 ? 'Anfrage senden' : 'Weiter'}
               </motion.button>
             </div>
 
             {/* Step Counter */}
-            <div className="text-center mt-4 text-ghost-white/50 text-xs">
+            <div className="text-center mt-6 text-ghost-white/50 text-sm">
               Schritt {step + 1} von {questions.length}
             </div>
           </motion.div>
@@ -368,4 +368,4 @@ Gentle Webdesign Team
   )
 }
 
-export default ProjectInquiryModal;
+export default ProjectInquiryModal
