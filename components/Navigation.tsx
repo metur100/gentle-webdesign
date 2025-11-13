@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import { HiMenu, HiX } from 'react-icons/hi'
 
 const Navigation = () => {
@@ -16,6 +15,12 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleContact = () => {
+    const subject = encodeURIComponent('Projektanfrage - Gentle Webdesign')
+    const body = encodeURIComponent('Sehr geehrtes Team von Gentle Webdesign,\n\nich interessiere mich für Ihre Dienstleistungen und würde gerne mehr erfahren.\n\nMit freundlichen Grüßen')
+    window.open(`mailto:info@gentle-webdesign.com?subject=${subject}&body=${body}`, '_blank')
+  }
 
   const navItems = [
     { label: 'Services', href: '#services' },
@@ -36,35 +41,6 @@ const Navigation = () => {
           isScrolled ? 'bg-oxford-blue/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between h-20 lg:h-24">
-            {/* Logo - Only visible at top */}
-            <motion.a
-              href="#"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative z-10"
-            >
-              <Image
-                src="/logo.png"
-                alt="Gentle Webdesign"
-                width={180}
-                height={60}
-                className="h-12 w-auto"
-                priority
-              />
-            </motion.a>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-ghost-white text-3xl z-50"
-            >
-              {isMobileMenuOpen ? <HiX /> : <HiMenu />}
-            </motion.button>
-          </div>
-        </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>
@@ -90,16 +66,15 @@ const Navigation = () => {
                     {item.label}
                   </motion.a>
                 ))}
-                <motion.a
-                  href="#contact"
+                <motion.button
+                  onClick={handleContact}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full text-center px-6 py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-xl"
                 >
                   Kontakt
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
           )}
@@ -133,8 +108,8 @@ const Navigation = () => {
             ))}
 
             {/* Kontakt CTA Button */}
-            <motion.a
-              href="#contact"
+            <motion.button
+              onClick={handleContact}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6 }}
@@ -143,7 +118,7 @@ const Navigation = () => {
               className="ml-2 px-6 py-2 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-sm shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
             >
               Kontakt
-            </motion.a>
+            </motion.button>
           </div>
         </motion.div>
       </motion.nav>
@@ -151,4 +126,4 @@ const Navigation = () => {
   )
 }
 
-export default Navigation
+export default Navigation;
