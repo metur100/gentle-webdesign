@@ -1,15 +1,17 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useAnimation } from 'framer-motion'
 import { HiSparkles } from 'react-icons/hi'
 import { useRef, useState, useEffect } from 'react'
-import ProjectInquiryModal from '@/components/ProjectInquiryModal' // Import the modal
+import ProjectInquiryModal from '@/components/ProjectInquiryModal'
 
 const Hero = () => {
   const { scrollY } = useScroll()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false) // Control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const titleControls = useAnimation()
+  const contentControls = useAnimation()
 
   // Scroll transformations
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
@@ -43,19 +45,44 @@ const Hero = () => {
     y: Math.random() * 100
   }))
 
+  // Hero title animation sequence
+  useEffect(() => {
+    async function sequence() {
+      // Start title animation
+      await titleControls.start({ 
+        scale: 1.05, 
+        opacity: 1, 
+        filter: 'blur(8px)', 
+        transition: { duration: 0.8 } 
+      })
+      await titleControls.start({ 
+        scale: 0.8, 
+        opacity: 1, 
+        filter: 'blur(2px)', 
+        transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } 
+      })
+      await titleControls.start({ 
+        scale: 0.96, 
+        filter: 'blur(0px)', 
+        transition: { duration: 0.6 } 
+      })
+      
+      // Then show the rest of the content
+      await contentControls.start({ 
+        opacity: 1, 
+        y: 0,
+        transition: { duration: 0.6 }
+      })
+    }
+    sequence()
+  }, [titleControls, contentControls])
+
   // Fix hydration by ensuring consistent random values
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return (
-      <section className="relative min-h-screen w-full flex items-center justify-center bg-black">
-        <div className="text-white">Loading...</div>
-      </section>
-    )
-  }
 
   return (
     <>
@@ -170,34 +197,45 @@ const Hero = () => {
         >
           <div className="flex items-center justify-center min-h-screen">
             <div className="max-w-5xl text-center">
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="font-extrabold mb-8 leading-tight"
-              >
-                <span className="block text-ghost-white text-[clamp(5.5rem,10vw,6.5rem)] bg-gradient-to-r from-ghost-white to-ghost-white/80 bg-clip-text text-transparent">
-                  Gentle Webdesign
-                </span>
-                <span className="block text-aquamarine text-[clamp(2.5rem,10vw,5.5rem)] bg-gradient-to-r from-aquamarine to-tropical-indigo bg-clip-text text-transparent">
-                  Digital Solutions
-                </span>
-              </motion.h1>
+              {/* Main Title with Animation */}
+              <div className="mb-8">
+                <motion.div
+                  initial={{ opacity: 0, scale: 1.4 }}
+                  animate={titleControls}
+                  style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
+                  className="leading-tight"
+                >
+                  <div className="text-ghost-white text-[clamp(5.5rem,10vw,6.5rem)] bg-gradient-to-r from-ghost-white to-ghost-white/80 bg-clip-text text-transparent">
+                    Gentle Webdesign
+                  </div>
+                  <div className="text-aquamarine text-[clamp(2.5rem,10vw,5.5rem)] bg-gradient-to-r from-aquamarine to-tropical-indigo bg-clip-text text-transparent">
+                    Digital Solutions
+                  </div>
+                </motion.div>
+              </div>
 
+              {/* Subtitle */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={contentControls}
+                className="mt-8 text-ghost-white/75 text-xl md:text-2xl font-medium mb-12"
+              >
+                Software development • Interfaces • Motion
+              </motion.div>
+
+              {/* Description Text */}
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.35 }}
+                animate={contentControls}
                 className="text-2xl md:text-4xl lg:text-2xl text-ghost-white/75 mb-12 leading-relaxed max-w-4xl mx-auto"
               >
                 Wir entwickeln innovative Websites, moderne Webanwendungen, AI-Integrationen und cloud-basierte Lösungen für Ihr Business.
               </motion.p>
 
-              {/* Enhanced CTA Button */}
+              {/* CTA Button */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                animate={contentControls}
                 className="flex justify-center"
               >
                 <motion.button
@@ -206,7 +244,7 @@ const Hero = () => {
                     boxShadow: "0 0 60px rgba(1, 255, 169, 0.8)",
                   }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsModalOpen(true)} // Open modal on click
+                  onClick={() => setIsModalOpen(true)}
                   className="relative px-16 py-6 bg-gradient-to-r from-aquamarine to-tropical-indigo text-black font-bold rounded-full text-2xl hover:shadow-2xl transition-all duration-300 overflow-hidden group"
                 >
                   <motion.div
@@ -230,6 +268,9 @@ const Hero = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Subtle backdrop blur layer to support hero effect */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 bg-black/0" />
       </section>
 
       {/* Render modal only when isModalOpen is true */}
