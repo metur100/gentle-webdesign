@@ -135,7 +135,7 @@ const Services = () => {
   }, [])
 
   return (
-    <section id="services" ref={ref} className="py-12 lg:py-16 relative overflow-hidden bg-white">
+    <section id="services" ref={ref} className="py-16 lg:py-20 relative overflow-hidden bg-white">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
         <motion.div
@@ -148,22 +148,22 @@ const Services = () => {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1800px] mx-auto px-4 lg:px-8">
-        {/* Section Header - Small spacing */}
+      <div className="relative z-10 max-w-[2000px] mx-auto px-4 lg:px-8">
+        {/* Section Header */}
         <motion.div
           style={{ opacity }}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-6 lg:mb-8" // Added small spacing here
+          className="text-center mb-8 lg:mb-12"
         >
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="inline-block px-6 py-3 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine font-semibold text-sm mb-4"
+            className="inline-block px-8 py-4 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine font-semibold text-lg mb-6"
           >
             Unsere Services
           </motion.span>
@@ -173,7 +173,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="block text-gray-900 text-[clamp(2.5rem,7vw,4.5rem)]"
+              className="block text-gray-900 text-[clamp(3rem,8vw,5.5rem)]"
             >
               Was wir für Sie
             </motion.span>
@@ -182,7 +182,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="block text-aquamarine text-[clamp(2.5rem,7vw,4.5rem)]"
+              className="block text-aquamarine text-[clamp(3rem,8vw,5.5rem)]"
             >
               entwickeln können
             </motion.span>
@@ -192,20 +192,20 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mt-4"
+            className="text-2xl md:text-3xl text-gray-600 max-w-5xl mx-auto mt-6"
           >
             Von der Idee bis zur Umsetzung – wir begleiten Sie durch den gesamten Entwicklungsprozess
           </motion.p>
         </motion.div>
 
-        {/* Overlapping Services Section - With small spacing from title */}
+        {/* Overlapping Services Section */}
         <div 
           ref={containerRef}
-          className="min-h-[60vh] flex items-start justify-center relative cursor-default"
+          className="min-h-[70vh] flex items-start justify-center relative cursor-default"
         >
           <div 
             ref={servicesContainerRef}
-            className="w-full max-w-[1400px] px-4"
+            className="w-full max-w-[1600px] px-4"
           >
             {services.map((service, index) => (
               <motion.div
@@ -234,48 +234,44 @@ const Services = () => {
                 className="absolute left-0 right-0 mx-auto w-full"
                 style={{ top: '0%' }}
               >
-                <div className="service-box-content rounded-4xl p-8 lg:p-12 shadow-2xl border border-gray-300/30 bg-white/98 backdrop-blur-sm mx-auto w-full max-w-[1100px]">
+                <div className="service-box-content rounded-4xl p-12 lg:p-16 shadow-2xl border border-gray-300/30 bg-white/98 backdrop-blur-sm mx-auto w-full max-w-[1400px]">
                   {/* Service Header */}
-                  <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10 mb-8">
+                  <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8 lg:gap-12 mb-12">
                     <motion.div
-                      className="flex-shrink-0 flex items-center justify-center w-28 h-28 lg:w-36 lg:h-36 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-3xl shadow-2xl"
+                      className="flex-shrink-0 flex items-center justify-center w-36 h-36 lg:w-48 lg:h-48 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-4xl shadow-2xl"
                       whileHover={{ scale: 1.05, rotate: 5 }}
                       transition={{ type: 'spring', stiffness: 300 }}
                     >
-                      <service.icon className="text-4xl lg:text-5xl text-black" />
+                      <service.icon className="text-5xl lg:text-6xl text-black" />
                     </motion.div>
                     <div className="flex-1">
-                      <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3 leading-tight">
+                      <h3 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
                         {service.title}
                       </h3>
-                      <p className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-4xl">
+                      <p className="text-2xl lg:text-3xl text-gray-600 leading-relaxed max-w-5xl">
                         {service.description}
                       </p>
                     </div>
                   </div>
 
                   {/* Features */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {service.features.map((feature, i) => (
                       <motion.div
                         key={feature}
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: i * 0.1 + 0.3 }}
-                        className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-gray-50 to-white border border-gray-200/60 shadow-sm hover:shadow-md transition-all duration-300"
+                        className="flex items-center gap-4 p-6 rounded-2xl bg-gradient-to-r from-gray-50 to-white border border-gray-200/60 shadow-lg hover:shadow-xl transition-all duration-300"
                       >
-                        <div className="w-3 h-3 bg-gradient-to-r from-aquamarine to-tropical-indigo rounded-full flex-shrink-0 shadow-md" />
-                        <span className="text-lg font-semibold text-gray-800">{feature}</span>
+                        <div className="w-4 h-4 bg-gradient-to-r from-aquamarine to-tropical-indigo rounded-full flex-shrink-0 shadow-lg" />
+                        <span className="text-2xl font-semibold text-gray-800">{feature}</span>
                       </motion.div>
                     ))}
                   </div>
-
-                  {/* Removed Service Indicator dots */}
                 </div>
               </motion.div>
             ))}
-            
-            {/* Removed Navigation Hints text */}
           </div>
         </div>
       </div>
