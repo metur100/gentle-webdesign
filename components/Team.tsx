@@ -11,14 +11,14 @@ const team = [
     role: 'Founder & Lead Developer',
     description: 'Full-Stack Entwickler mit Expertise in React, .NET und Azure Cloud Solutions.',
     expertise: ['React/Next.js', '.NET Core', 'Azure Cloud', 'AI Integration'],
-    initialX: -300
+    initialX: -600 // Increased separation
   },
   {
     name: 'Medin Turkes',
     role: 'Backend Specialist',
     description: 'Experte für skalierbare Backend-Architekturen und Datenbank-Design.',
     expertise: ['C# .NET', 'SQL', 'API Design', 'DevOps', "NoSQL"],
-    initialX: 300
+    initialX: 600 // Increased separation
   },
 ]
 
@@ -32,25 +32,28 @@ const Team = () => {
     offset: ["start end", "end start"]
   })
 
-  // Team member movement - start separated and come together
-  const member1X = useTransform(scrollYProgress, [0, 0.4], [-300, 0])
-  const member2X = useTransform(scrollYProgress, [0, 0.4], [300, 0])
+  // Team member movement - start VERY separated and come together later
+  const member1X = useTransform(scrollYProgress, [0, 0.3, 0.6], [-600, -600, 0]) // Stay separated longer
+  const member2X = useTransform(scrollYProgress, [0, 0.3, 0.6], [600, 600, 0]) // Stay separated longer
   
-  // Opacity and scale for collision effect
-  const collisionScale = useTransform(scrollYProgress, [0.35, 0.4, 0.45], [1, 1.1, 1])
-  const collisionOpacity = useTransform(scrollYProgress, [0.35, 0.4, 0.45], [1, 0.7, 1])
+  // Opacity and scale for collision effect - moved later
+  const collisionScale = useTransform(scrollYProgress, [0.55, 0.6, 0.65], [1, 1.15, 1])
+  const collisionOpacity = useTransform(scrollYProgress, [0.55, 0.6, 0.65], [1, 0.6, 1])
 
   // Background elements parallax
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
-  // Detect collision
+  // Section opacity - fade in later
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
+
+  // Detect collision - moved later
   const unsubscribeRef = useRef<(() => void) | null>(null)
   
   if (typeof window !== 'undefined') {
     unsubscribeRef.current?.()
     unsubscribeRef.current = scrollYProgress.on('change', (latest) => {
-      if (latest >= 0.38 && latest <= 0.42 && !collisionTriggered.current) {
+      if (latest >= 0.58 && latest <= 0.62 && !collisionTriggered.current) {
         collisionTriggered.current = true
         setHasCollided(true)
         
@@ -83,7 +86,7 @@ const Team = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         {/* Section Header */}
         <motion.div
-          style={{ opacity }}
+          style={{ opacity: sectionOpacity }}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -109,7 +112,7 @@ const Team = () => {
         </motion.div>
 
         {/* Team Grid with Collision Animation */}
-        <div className="grid md:grid-cols-2 gap-12 relative">
+        <div className="grid md:grid-cols-2 gap-12 relative min-h-[600px]">
           {team.map((member, index) => (
             <motion.div
               key={member.name}
@@ -122,26 +125,27 @@ const Team = () => {
             >
               <motion.div
                 animate={hasCollided ? {
-                  scale: [1, 1.05, 1],
-                  rotate: index === 0 ? [0, -1, 1, 0] : [0, 1, -1, 0],
+                  scale: [1, 1.1, 1],
+                  rotate: index === 0 ? [0, -3, 2, 0] : [0, 3, -2, 0],
                 } : {}}
                 transition={{ 
-                  duration: 0.6,
-                  times: [0, 0.3, 0.6, 1]
+                  duration: 0.8,
+                  times: [0, 0.4, 0.7, 1],
+                  ease: "easeOut"
                 }}
                 className="relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl p-12 hover:border-aquamarine/50 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-xl"
               >
                 {/* Collision Glow Effect */}
                 <motion.div
                   animate={hasCollided ? {
-                    opacity: [0, 0.3, 0],
-                    scale: [1, 1.2, 1.5]
+                    opacity: [0, 0.4, 0],
+                    scale: [1, 1.3, 1.8]
                   } : {}}
-                  transition={{ duration: 0.8 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
                   className={`absolute inset-0 rounded-3xl ${
                     index === 0 
-                      ? 'bg-gradient-to-br from-aquamarine/10 to-tropical-indigo/10' 
-                      : 'bg-gradient-to-br from-tropical-indigo/10 to-aquamarine/10'
+                      ? 'bg-gradient-to-br from-aquamarine/20 to-tropical-indigo/20' 
+                      : 'bg-gradient-to-br from-tropical-indigo/20 to-aquamarine/20'
                   }`}
                 />
                 
