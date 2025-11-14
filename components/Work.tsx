@@ -181,109 +181,110 @@ const Work = () => {
           </motion.p>
         </motion.div>
 
-        {/* Overlapping Projects Section */}
+        {/* Stacked Projects Section with Peeking Effect */}
         <div 
           ref={containerRef}
           className="min-h-[70vh] flex items-start justify-center relative cursor-default mb-20"
         >
           <div 
             ref={projectsContainerRef}
-            className="w-full max-w-[1400px] px-4"
+            className="w-full max-w-[1400px] px-4 relative"
+            style={{ perspective: '2000px' }}
           >
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 60, scale: 0.95 }}
-                animate={ 
-                  index === activeProject 
-                    ? { 
-                        opacity: 1, 
-                        y: 0, 
-                        scale: 1,
-                        zIndex: 30
-                      } 
-                    : { 
-                        opacity: 0.1, 
-                        y: index < activeProject ? -60 : 80,
-                        scale: 0.9,
-                        zIndex: 10
-                      } 
-                }
-                transition={{ 
-                  duration: 0.7, 
-                  ease: [0.22, 1, 0.36, 1],
-                  scale: { duration: 0.6 }
-                }}
-                className="absolute left-0 right-0 mx-auto w-full"
-                style={{ top: '0%' }}
-              >
-                <div className="project-box-content group relative cursor-pointer">
-                  <div className="relative h-[550px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl">
-                    {/* Background Gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
-                    
-                    {/* Grid Pattern */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
+            {projects.map((project, index) => {
+              const offset = index - activeProject
+              const isActive = index === activeProject
+              const isPeeking = offset > 0 && offset <= 2 // Show 2 cards peeking from behind
+              
+              return (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={{
+                    y: isActive ? 0 : offset > 0 ? -30 - (offset * 15) : 100,
+                    scale: isActive ? 1 : isPeeking ? 0.95 - (offset * 0.02) : 0.9,
+                    opacity: isActive ? 1 : isPeeking ? 1 : 0,
+                    zIndex: isActive ? 30 : isPeeking ? 20 - offset : 0,
+                    rotateX: isActive ? 0 : isPeeking ? 2 + (offset * 1) : 0,
+                  }}
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                  className="absolute left-0 right-0 mx-auto w-full"
+                  style={{ 
+                    top: '0%',
+                    transformStyle: 'preserve-3d'
+                  }}
+                >
+                  <div className="project-box-content group relative cursor-pointer">
+                    <div className="relative h-[550px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl">
+                      {/* Background Gradient */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                      
+                      {/* Grid Pattern */}
+                      <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
 
-                    {/* Animated Border Effect */}
-                    <motion.div 
-                      className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{
-                        background: 'linear-gradient(90deg, transparent, rgba(1, 255, 169, 0.3), transparent)',
-                        backgroundSize: '200% 100%',
-                      }}
-                      animate={{
-                        backgroundPosition: ['0% 0%', '200% 0%'],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: 'linear',
-                      }}
-                    />
+                      {/* Animated Border Effect */}
+                      <motion.div 
+                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background: 'linear-gradient(90deg, transparent, rgba(1, 255, 169, 0.3), transparent)',
+                          backgroundSize: '200% 100%',
+                        }}
+                        animate={{
+                          backgroundPosition: ['0% 0%', '200% 0%'],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: 'linear',
+                        }}
+                      />
 
-                    {/* Content */}
-                    <div className="relative z-10 h-full p-10 flex flex-col justify-between">
-                      <div>
-                        <span className="inline-block px-4 py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-sm font-semibold mb-6">
-                          {project.category}
-                        </span>
-                        
-                        <h3 className="text-4xl md:text-5xl font-bold mb-6 group-hover:text-aquamarine transition-colors duration-300 text-ghost-white">
-                          {project.title}
-                        </h3>
-                        
-                        <p className="text-ghost-white/70 text-lg lg:text-xl mb-8 leading-relaxed">
-                          {project.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mb-6">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-4 py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-sm hover:border-aquamarine/30 transition-colors duration-300"
-                            >
-                              {tag}
-                            </span>
-                          ))}
+                      {/* Content */}
+                      <div className="relative z-10 h-full p-10 flex flex-col justify-between">
+                        <div>
+                          <span className="inline-block px-4 py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-sm font-semibold mb-6">
+                            {project.category}
+                          </span>
+                          
+                          <h3 className="text-4xl md:text-5xl font-bold mb-6 group-hover:text-aquamarine transition-colors duration-300 text-ghost-white">
+                            {project.title}
+                          </h3>
+                          
+                          <p className="text-ghost-white/70 text-lg lg:text-xl mb-8 leading-relaxed">
+                            {project.description}
+                          </p>
                         </div>
 
-                        {/* Link */}
-                        <div className="flex items-center gap-3 text-aquamarine font-semibold text-lg group-hover:gap-5 transition-all duration-300">
-                          <span>Projekt ansehen</span>
-                          <motion.div whileHover={{ x: 5 }}>
-                            <HiExternalLink className="text-2xl" />
-                          </motion.div>
+                        <div>
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2 mb-6">
+                            {project.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-4 py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-sm hover:border-aquamarine/30 transition-colors duration-300"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Link */}
+                          <div className="flex items-center gap-3 text-aquamarine font-semibold text-lg group-hover:gap-5 transition-all duration-300">
+                            <span>Projekt ansehen</span>
+                            <motion.div whileHover={{ x: 5 }}>
+                              <HiExternalLink className="text-2xl" />
+                            </motion.div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              )
+            })}
           </div>
         </div>
 
