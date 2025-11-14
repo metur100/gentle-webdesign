@@ -5,74 +5,112 @@ import Image from 'next/image'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa'
 
+// Text content configuration for consistency
+const content = {
+  footer: {
+    description: "Wir sind Ihr Partner für innovative Softwarelösungen, modernes Webdesign und KI-Integration. Von der Idee bis zur Umsetzung – wir gestalten digitale Zukunft.",
+    navigation: {
+      title: "Navigation",
+      items: ['Services', 'Work', 'Team', 'Reviews', 'FAQ']
+    },
+    services: {
+      title: "Services",
+      items: ['Webdesign', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack']
+    },
+    legal: {
+      copyright: "Alle Rechte vorbehalten.",
+      links: ['Datenschutz', 'Impressum', 'AGB']
+    }
+  }
+}
+
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer id="contact" className="relative overflow-hidden bg-black">
+    <footer id="contact" className="relative overflow-hidden bg-white">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-aquamarine/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-tropical-indigo/10 rounded-full blur-[120px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-aquamarine/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-tropical-indigo/5 rounded-full blur-[100px]" />
+        <div className="absolute inset-0 bg-grid-pattern bg-[length:50px_50px] opacity-[0.02]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-12">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16 pt-32 lg:pt-40 pb-12">
         {/* Footer Main Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12 border-b border-ghost-white/10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12 border-b border-gray-200">
           {/* Logo & Description */}
           <div className="lg:col-span-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
             >
-              <Image
-                src="/logo.png"
-                alt="Gentle Webdesign"
-                width={200}
-                height={67}
-                className="h-14 w-auto mb-6"
-              />
-              <p className="text-ghost-white/70 mb-6 max-w-md leading-relaxed">
-                Wir sind Ihr Partner für innovative Softwarelösungen, modernes Webdesign 
-                und KI-Integration. Von der Idee bis zur Umsetzung – wir gestalten digitale Zukunft.
-              </p>
-              <div className="flex gap-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mb-6"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Gentle Webdesign"
+                  width={200}
+                  height={67}
+                  className="h-14 w-auto"
+                />
+              </motion.div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-gray-600 text-lg mb-6 max-w-md leading-relaxed"
+              >
+                {content.footer.description}
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex gap-4"
+              >
                 <motion.a
                   href="#"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
                 >
-                  <FaLinkedin className="text-lg" />
+                  <FaLinkedin className="text-xl" />
                 </motion.a>
                 <motion.a
                   href="#"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
                 >
-                  <FaGithub className="text-lg" />
+                  <FaGithub className="text-xl" />
                 </motion.a>
                 <motion.a
                   href="#"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
                 >
-                  <FaTwitter className="text-lg" />
+                  <FaTwitter className="text-xl" />
                 </motion.a>
                 <motion.a
                   href="#"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
+                  className="w-12 h-12 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue hover:shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
                 >
-                  <FaInstagram className="text-lg" />
+                  <FaInstagram className="text-xl" />
                 </motion.a>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
 
@@ -80,20 +118,35 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.1, type: "spring", stiffness: 100 }}
           >
-            <h4 className="text-xl font-bold mb-6 text-gradient">Navigation</h4>
-            <ul className="space-y-3">
-              {['Services', 'Work', 'Team', 'Reviews', 'FAQ'].map((item) => (
-                <li key={item}>
+            <motion.h4 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900"
+              style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
+            >
+              {content.footer.navigation.title}
+            </motion.h4>
+            <ul className="space-y-4">
+              {content.footer.navigation.items.map((item, index) => (
+                <motion.li 
+                  key={item}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + (index * 0.1) }}
+                >
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-ghost-white/70 hover:text-aquamarine transition-colors duration-300"
+                    className="text-gray-600 text-lg hover:text-aquamarine transition-colors duration-300 block py-2"
                   >
                     {item}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
@@ -102,20 +155,35 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 100 }}
           >
-            <h4 className="text-xl font-bold mb-6 text-gradient">Services</h4>
-            <ul className="space-y-3">
-              {['Webdesign', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack'].map((service) => (
-                <li key={service}>
+            <motion.h4 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900"
+              style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
+            >
+              {content.footer.services.title}
+            </motion.h4>
+            <ul className="space-y-4">
+              {content.footer.services.items.map((service, index) => (
+                <motion.li 
+                  key={service}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.4 + (index * 0.1) }}
+                >
                   <a
                     href="#services"
-                    className="text-ghost-white/70 hover:text-aquamarine transition-colors duration-300"
+                    className="text-gray-600 text-lg hover:text-aquamarine transition-colors duration-300 block py-2"
                   >
                     {service}
                   </a>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
@@ -123,30 +191,46 @@ const Footer = () => {
 
         {/* Copyright */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row justify-between items-center gap-4 text-ghost-white/60 text-sm"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 100 }}
+          className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-lg"
         >
-          <p>
-            © {currentYear} Gentle Webdesign. Alle Rechte vorbehalten.
-          </p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-aquamarine transition-colors duration-300">
-              Datenschutz
-            </a>
-            <a href="#" className="hover:text-aquamarine transition-colors duration-300">
-              Impressum
-            </a>
-            <a href="#" className="hover:text-aquamarine transition-colors duration-300">
-              AGB
-            </a>
-          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            © {currentYear} Gentle Webdesign. {content.footer.legal.copyright}
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex gap-8"
+          >
+            {content.footer.legal.links.map((link, index) => (
+              <motion.a 
+                key={link}
+                href="#"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.8 + (index * 0.1) }}
+                className="hover:text-aquamarine transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+              >
+                {link}
+              </motion.a>
+            ))}
+          </motion.div>
         </motion.div>
       </div>
     </footer>
   )
 }
 
-export default Footer;
+export default Footer
