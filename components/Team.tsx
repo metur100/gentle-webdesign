@@ -10,7 +10,7 @@ const team = [
     name: 'Berk-Can',
     role: 'Founder & Lead Developer',
     description: 'Full-Stack Entwickler mit Expertise in React, .NET und Azure Cloud Solutions.',
-    expertise: ['React/Next.js', '.NET Core', 'Azure Cloud', 'AI Integration'],
+    expertise: ['React', '.NET Core', 'Azure Cloud', 'AI Integration'],
     initialX: -600 // Increased separation
   },
   {

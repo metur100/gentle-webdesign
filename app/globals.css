@@ -5,10 +5,52 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   
   body {
     @apply bg-black text-ghost-white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  
+  h1 {
+    font-size: 80px;
+    margin: 20px 0px 10px;
+  }
+  
+  h2 {
+    font-size: 60px;
+    margin: 20px 0px 10px;
+  }
+  
+  h3 {
+    font-size: 48px;
+    margin: 15px 0px 10px;
+  }
+  
+  h4 {
+    font-size: 36px;
+    margin: 15px 0px 10px;
+  }
+  
+  h5 {
+    font-size: 24px;
+    margin: 10px 0px 8px;
+  }
+  
+  h6 {
+    font-size: 20px;
+    margin: 10px 0px 8px;
+  }
+  
+  p, span, div {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   
   * {
@@ -33,17 +75,27 @@
     box-shadow: 0 0 20px rgba(169, 122, 255, 0.3);
   }
   
-  /* Hexagon clip-path */
   .clip-hexagon {
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   }
   
-  /* Video specific styles */
+  .font-helvetica-bold {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+  }
+  
+  .big-title {
+    font-size: 80px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 20px 0px 10px;
+  }
+  
   video {
     object-fit: cover;
   }
   
-  /* Smooth video transitions */
   video::-webkit-media-controls {
     display: none !important;
   }

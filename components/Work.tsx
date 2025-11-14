@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { HiExternalLink } from 'react-icons/hi'
 
 const projects = [
@@ -37,12 +37,90 @@ const projects = [
 
 const Work = () => {
   const ref = useRef(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const projectsContainerRef = useRef<HTMLDivElement>(null)
+  const [activeProject, setActiveProject] = useState(0)
+  const [isScrolling, setIsScrolling] = useState(false)
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   })
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+
+  // Wheel scroll handler for overlapping effect
+  useEffect(() => {
+    const projectsContainer = projectsContainerRef.current
+    if (!projectsContainer) return
+
+    let ticking = false
+    const onWheel = (e: WheelEvent) => {
+      const target = e.target as HTMLElement
+      const isInsideProjectsContainer = projectsContainer.contains(target)
+      
+      if (isInsideProjectsContainer) {
+        const isProjectContent = target.closest('.project-box-content')
+        if (isProjectContent) {
+          e.preventDefault()
+          
+          if (ticking || isScrolling) return
+          ticking = true
+          setIsScrolling(true)
+
+          if (e.deltaY > 10) {
+            setActiveProject((current) => {
+              if (current === projects.length - 1) {
+                return 0
+              }
+              return Math.min(current + 1, projects.length - 1)
+            })
+          } else if (e.deltaY < -10) {
+            setActiveProject((current) => {
+              if (current === 0) {
+                return projects.length - 1
+              }
+              return Math.max(current - 1, 0)
+            })
+          }
+
+          setTimeout(() => {
+            ticking = false
+            setIsScrolling(false)
+          }, 600)
+        }
+      }
+    }
+
+    document.addEventListener('wheel', onWheel, { passive: false })
+    return () => document.removeEventListener('wheel', onWheel)
+  }, [isScrolling])
+
+  // Keyboard navigation
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        setActiveProject((current) => {
+          if (current === projects.length - 1) {
+            return 0
+          }
+          return Math.min(current + 1, projects.length - 1)
+        })
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        setActiveProject((current) => {
+          if (current === 0) {
+            return projects.length - 1
+          }
+          return Math.max(current - 1, 0)
+        })
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   return (
     <section id="work" ref={ref} className="py-32 lg:py-40 relative overflow-hidden bg-black">
@@ -103,115 +181,110 @@ const Work = () => {
           </motion.p>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -15, scale: 1.02 }}
-              className="group relative cursor-pointer"
-            >
-              <div className="relative h-[550px] bg-gradient-to-br from-black/90 to-oxford-blue/40 border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500">
-                {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-5 group-hover:opacity-15 transition-opacity duration-500`} />
-                
-                {/* Grid Pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
-
-                {/* Animated Border Effect */}
-                <motion.div 
-                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(1, 255, 169, 0.3), transparent)',
-                    backgroundSize: '200% 100%',
-                  }}
-                  animate={{
-                    backgroundPosition: ['0% 0%', '200% 0%'],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                />
-
-                {/* Content */}
-                <div className="relative z-10 h-full p-10 flex flex-col justify-between">
-                  <div>
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.15 + 0.2 }}
-                      className="inline-block px-4 py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-sm font-semibold mb-6"
-                    >
-                      {project.category}
-                    </motion.span>
+        {/* Overlapping Projects Section */}
+        <div 
+          ref={containerRef}
+          className="min-h-[70vh] flex items-start justify-center relative cursor-default mb-20"
+        >
+          <div 
+            ref={projectsContainerRef}
+            className="w-full max-w-[1400px] px-4"
+          >
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 60, scale: 0.95 }}
+                animate={ 
+                  index === activeProject 
+                    ? { 
+                        opacity: 1, 
+                        y: 0, 
+                        scale: 1,
+                        zIndex: 30
+                      } 
+                    : { 
+                        opacity: 0.1, 
+                        y: index < activeProject ? -60 : 80,
+                        scale: 0.9,
+                        zIndex: 10
+                      } 
+                }
+                transition={{ 
+                  duration: 0.7, 
+                  ease: [0.22, 1, 0.36, 1],
+                  scale: { duration: 0.6 }
+                }}
+                className="absolute left-0 right-0 mx-auto w-full"
+                style={{ top: '0%' }}
+              >
+                <div className="project-box-content group relative cursor-pointer">
+                  <div className="relative h-[550px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl">
+                    {/* Background Gradient */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
                     
-                    <motion.h3
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.15 + 0.3 }}
-                      className="text-4xl md:text-5xl font-bold mb-6 group-hover:text-aquamarine transition-colors duration-300"
-                    >
-                      {project.title}
-                    </motion.h3>
-                    
-                    <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.15 + 0.4 }}
-                      className="text-ghost-white/70 text-lg lg:text-xl mb-8 leading-relaxed"
-                    >
-                      {project.description}
-                    </motion.p>
-                  </div>
+                    {/* Grid Pattern */}
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(1,255,169,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(1,255,169,0.03)_1px,transparent_1px)] bg-[size:30px_30px] opacity-50" />
 
-                  <div>
-                    {/* Tags */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.15 + 0.5 }}
-                      className="flex flex-wrap gap-2 mb-6"
-                    >
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-4 py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-sm hover:border-aquamarine/30 transition-colors duration-300"
-                        >
-                          {tag}
+                    {/* Animated Border Effect */}
+                    <motion.div 
+                      className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{
+                        background: 'linear-gradient(90deg, transparent, rgba(1, 255, 169, 0.3), transparent)',
+                        backgroundSize: '200% 100%',
+                      }}
+                      animate={{
+                        backgroundPosition: ['0% 0%', '200% 0%'],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'linear',
+                      }}
+                    />
+
+                    {/* Content */}
+                    <div className="relative z-10 h-full p-10 flex flex-col justify-between">
+                      <div>
+                        <span className="inline-block px-4 py-2 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine text-sm font-semibold mb-6">
+                          {project.category}
                         </span>
-                      ))}
-                    </motion.div>
+                        
+                        <h3 className="text-4xl md:text-5xl font-bold mb-6 group-hover:text-aquamarine transition-colors duration-300 text-ghost-white">
+                          {project.title}
+                        </h3>
+                        
+                        <p className="text-ghost-white/70 text-lg lg:text-xl mb-8 leading-relaxed">
+                          {project.description}
+                        </p>
+                      </div>
 
-                    {/* Link */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.15 + 0.6 }}
-                      className="flex items-center gap-3 text-aquamarine font-semibold text-lg group-hover:gap-5 transition-all duration-300"
-                    >
-                      <span>Projekt ansehen</span>
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                      >
-                        <HiExternalLink className="text-2xl" />
-                      </motion.div>
-                    </motion.div>
+                      <div>
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-4 py-2 bg-black/50 border border-ghost-white/10 rounded-full text-ghost-white/60 text-sm hover:border-aquamarine/30 transition-colors duration-300"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Link */}
+                        <div className="flex items-center gap-3 text-aquamarine font-semibold text-lg group-hover:gap-5 transition-all duration-300">
+                          <span>Projekt ansehen</span>
+                          <motion.div whileHover={{ x: 5 }}>
+                            <HiExternalLink className="text-2xl" />
+                          </motion.div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* View All */}
@@ -236,4 +309,4 @@ const Work = () => {
   )
 }
 
-export default Work;
+export default Work
