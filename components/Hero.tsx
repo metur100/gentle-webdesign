@@ -1,7 +1,6 @@
 'use client'
 
 import { motion, useScroll, useTransform, useAnimation } from 'framer-motion'
-import { HiSparkles } from 'react-icons/hi'
 import { useRef, useState, useEffect } from 'react'
 import ProjectInquiryModal from '@/components/ProjectInquiryModal'
 import Image from 'next/image'
@@ -103,21 +102,24 @@ const Hero = () => {
     }
   }, [displayText, isDeleting, currentTextIndex, rotatingTexts])
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && modelViewerRef.current) {
-      const modelViewer = modelViewerRef.current
-      
-      const handleClick = () => {
-        setIsModalOpen(true)
-      }
-      
-      modelViewer.addEventListener('click', handleClick)
-      
-      return () => {
-        modelViewer.removeEventListener('click', handleClick)
-      }
+// In your Hero component, replace the useEffect with model-viewer click handler:
+
+useEffect(() => {
+  if (typeof window !== 'undefined' && modelViewerRef.current) {
+    const modelViewer = modelViewerRef.current
+    
+    const handleClick = () => {
+      // Open the AI questionnaire in a new tab
+      window.open('/project-questionnaire', '_blank', 'noopener,noreferrer')
     }
-  }, [])
+    
+    modelViewer.addEventListener('click', handleClick)
+    
+    return () => {
+      modelViewer.removeEventListener('click', handleClick)
+    }
+  }
+}, [])
 
   return (
     <>
