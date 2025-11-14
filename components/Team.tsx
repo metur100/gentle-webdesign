@@ -13,7 +13,6 @@ const content = {
       part1: "Die Köpfe hinter",
       part2: "Gentle Webdesign"
     },
-    subtitle: "Ein eingespieltes Team aus Entwicklern, Designern und Innovatoren",
     members: [
       {
         name: 'Berk-Can',
@@ -172,7 +171,6 @@ const Team = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-xl md:text-2xl lg:text-3xl text-gray-600 max-w-4xl mx-auto mt-8"
           >
-            {content.team.subtitle}
           </motion.p>
         </motion.div>
 
