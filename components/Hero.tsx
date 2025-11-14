@@ -36,11 +36,9 @@ const Hero = () => {
   const contentControls = useAnimation()
   const modelViewerRef = useRef<any>(null)
 
-  // Scroll transformations
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
   const scale = useTransform(scrollY, [0, 300], [1, 0.95])
 
-  // Text rotation for description
   const rotatingTexts = [
     "innovative Websites",
     "moderne Webanwendungen", 
@@ -48,7 +46,6 @@ const Hero = () => {
     "cloud-basierte Lösungen für Ihr Business"
   ]
 
-  // Hero title animation sequence - SLOWER
   useEffect(() => {
     async function sequence() {
       await titleControls.start({ 
@@ -68,7 +65,7 @@ const Hero = () => {
         filter: 'blur(0px)', 
         transition: { duration: 0.8 }
       })
-      
+
       await contentControls.start({ 
         opacity: 1, 
         y: 0,
@@ -78,7 +75,6 @@ const Hero = () => {
     sequence()
   }, [titleControls, contentControls])
 
-  // Text rotation effect
   const [currentTextIndex, setCurrentTextIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
@@ -107,7 +103,6 @@ const Hero = () => {
     }
   }, [displayText, isDeleting, currentTextIndex, rotatingTexts])
 
-  // Model Viewer interaction
   useEffect(() => {
     if (typeof window !== 'undefined' && modelViewerRef.current) {
       const modelViewer = modelViewerRef.current
@@ -126,7 +121,6 @@ const Hero = () => {
 
   return (
     <>
-      {/* Model Viewer Script */}
       <script
         type="module"
         src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
@@ -134,10 +128,8 @@ const Hero = () => {
       />
 
       <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
-        {/* Background */}
         <div className="absolute inset-0 z-0 bg-black" />
 
-        {/* Connection Lines - Kept for subtle background effect */}
         <svg className="absolute inset-0 w-full h-full opacity-10">
           <motion.line
             x1="20%"
@@ -188,23 +180,22 @@ const Hero = () => {
           className="relative z-20 w-full max-w-full mx-auto px-4 sm:px-6 lg:px-8"
         >
           <div className="flex flex-col items-center justify-center min-h-screen py-8">
-            {/* Logo */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={contentControls}
               className="flex justify-center mb-4"
             >
-              <Image
-                src="/logo.png"
-                alt="Gentle Webdesign"
-                width={400}
-                height={133}
-                className="h-28 w-auto"
-                priority
-              />
+<Image
+  src="/logo.png"
+  alt="Gentle Webdesign"
+  width={800}         // ⬅ increase width
+  height={300}        // ⬅ increase height
+  className="h-56 w-auto"  // ⬅ increase display size (was h-44)
+  priority
+/>
+
             </motion.div>
 
-            {/* Main Title */}
             <div className="mb-4 min-h-[160px] flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 1.4 }}
@@ -220,7 +211,6 @@ const Hero = () => {
               </motion.div>
             </div>
 
-            {/* Rotating Description Text */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={contentControls}
@@ -241,66 +231,52 @@ const Hero = () => {
               </span>
             </motion.div>
 
-            {/* 3D Avatar with Model Viewer - Bigger and moved down */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={contentControls}
-              className="flex justify-center mt-16 mb-8 relative" 
-            >
-              <div className="relative cursor-pointer">
-                {/* Speech Bubble */}
-                <motion.div
-                  className="absolute -top-24 left-1/2 transform -translate-x-1/2 bg-ghost-white/95 text-black px-6 py-3 rounded-full text-lg font-semibold whitespace-nowrap backdrop-blur-sm border border-ghost-white/30 shadow-lg z-30"
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  Need a project? Click me!
-                  {/* Speech bubble tail */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-3 h-3 bg-ghost-white/95 rotate-45" />
-                </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={contentControls}
+  className="flex justify-center mt-8 mb-20 relative"
+>
+  <div className="relative cursor-pointer flex justify-center items-center w-full">
+    <motion.div
+      className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-ghost-white/95 text-black px-6 py-3 rounded-full text-lg font-semibold whitespace-nowrap backdrop-blur-sm border border-ghost-white/30 shadow-lg z-30"
+      animate={{
+        y: [0, -5, 0],
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      Need a project? Click me!
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-3 h-3 bg-ghost-white/95 rotate-45" />
+    </motion.div>
 
-                {/* 3D Model Viewer - Bigger and clean */}
-                <div className="relative w-[500px] h-[500px]"> {/* Made much bigger */}
-                  {/* @ts-ignore - model-viewer is a custom element */}
-                  <model-viewer
-                    ref={modelViewerRef}
-                    src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-                    alt="3D Avatar"
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    environment-image="neutral"
-                    auto-rotate
-                    camera-controls
-                    camera-orbit="0deg 75deg 105%"
-                    interaction-prompt="none"
-                    shadow-intensity="1"
-                    className="w-full h-full cursor-pointer rounded-2xl"
-                  >
-                    {/* Fallback content */}
-                    <div slot="poster" className="w-full h-full flex items-center justify-center bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-2xl">
-                      <div className="text-center text-black">
-                        <HiSparkles className="text-4xl mx-auto mb-2" />
-                        <p className="font-bold">3D Avatar</p>
-                        <p className="text-sm">Loading 3D model...</p>
-                      </div>
-                    </div>
-                  </model-viewer>
-                </div>
+    <div className="relative w-[550px] h-[550px] flex justify-center">
+      {/* @ts-ignore */}
+      <model-viewer
+        ref={modelViewerRef}
+        src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+        alt="3D Developer Avatar"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        environment-image="neutral"
+        auto-rotate
+        camera-controls
+        camera-orbit="0deg 75deg 105%"
+        interaction-prompt="none"
+        shadow-intensity="1"
+        className="w-full h-full cursor-pointer rounded-2xl"
+      >
+      </model-viewer>
+    </div>
+  </div>
+</motion.div>
 
-                {/* REMOVED: Green hover effect */}
-              </div>
-            </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* Render modal only when isModalOpen is true */}
       {isModalOpen && (
         <ProjectInquiryModal onClose={() => setIsModalOpen(false)} />
       )}
