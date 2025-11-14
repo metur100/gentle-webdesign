@@ -1,8 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { HiMail } from 'react-icons/hi'
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
+import { useRef, useState } from 'react'
 
 const team = [
   {
@@ -10,30 +11,82 @@ const team = [
     role: 'Founder & Lead Developer',
     description: 'Full-Stack Entwickler mit Expertise in React, .NET und Azure Cloud Solutions.',
     expertise: ['React/Next.js', '.NET Core', 'Azure Cloud', 'AI Integration'],
+    initialX: -300
   },
   {
     name: 'Medin Turkes',
     role: 'Backend Specialist',
     description: 'Experte für skalierbare Backend-Architekturen und Datenbank-Design.',
     expertise: ['C# .NET', 'SQL', 'API Design', 'DevOps', "NoSQL"],
+    initialX: 300
   },
 ]
 
 const Team = () => {
+  const ref = useRef(null)
+  const [hasCollided, setHasCollided] = useState(false)
+  const collisionTriggered = useRef(false)
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+
+  // Team member movement - start separated and come together
+  const member1X = useTransform(scrollYProgress, [0, 0.4], [-300, 0])
+  const member2X = useTransform(scrollYProgress, [0, 0.4], [300, 0])
+  
+  // Opacity and scale for collision effect
+  const collisionScale = useTransform(scrollYProgress, [0.35, 0.4, 0.45], [1, 1.1, 1])
+  const collisionOpacity = useTransform(scrollYProgress, [0.35, 0.4, 0.45], [1, 0.7, 1])
+
+  // Background elements parallax
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+
+  // Detect collision
+  const unsubscribeRef = useRef<(() => void) | null>(null)
+  
+  if (typeof window !== 'undefined') {
+    unsubscribeRef.current?.()
+    unsubscribeRef.current = scrollYProgress.on('change', (latest) => {
+      if (latest >= 0.38 && latest <= 0.42 && !collisionTriggered.current) {
+        collisionTriggered.current = true
+        setHasCollided(true)
+        
+        // Reset after animation
+        setTimeout(() => {
+          setHasCollided(false)
+        }, 1000)
+      }
+    })
+  }
+
   return (
-    <section id="team" className="py-48 relative overflow-hidden bg-white">
+    <section 
+      ref={ref} 
+      id="team" 
+      className="py-48 relative overflow-hidden bg-white min-h-screen flex items-center"
+    >
       {/* Background */}
       <div className="absolute inset-0 z-0 bg-white">
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-aquamarine/5 rounded-full blur-[100px]" />
-        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-tropical-indigo/5 rounded-full blur-[100px]" />
+        <motion.div
+          style={{ y }}
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-aquamarine/5 rounded-full blur-[100px]" 
+        />
+        <motion.div
+          style={{ y }}
+          className="absolute top-1/3 left-1/3 w-96 h-96 bg-tropical-indigo/5 rounded-full blur-[100px]"
+        />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         {/* Section Header */}
         <motion.div
+          style={{ opacity }}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
           className="text-center mb-24"
         >
@@ -55,27 +108,52 @@ const Team = () => {
           </p>
         </motion.div>
 
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 gap-12">
+        {/* Team Grid with Collision Animation */}
+        <div className="grid md:grid-cols-2 gap-12 relative">
           {team.map((member, index) => (
             <motion.div
               key={member.name}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+              style={{
+                x: index === 0 ? member1X : member2X,
+                scale: collisionScale,
+                opacity: collisionOpacity
+              }}
               className="group"
             >
-              <div className="relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl p-12 hover:border-aquamarine/50 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-xl">
-                {/* Hover Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+              <motion.div
+                animate={hasCollided ? {
+                  scale: [1, 1.05, 1],
+                  rotate: index === 0 ? [0, -1, 1, 0] : [0, 1, -1, 0],
+                } : {}}
+                transition={{ 
+                  duration: 0.6,
+                  times: [0, 0.3, 0.6, 1]
+                }}
+                className="relative bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-3xl p-12 hover:border-aquamarine/50 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-xl"
+              >
+                {/* Collision Glow Effect */}
+                <motion.div
+                  animate={hasCollided ? {
+                    opacity: [0, 0.3, 0],
+                    scale: [1, 1.2, 1.5]
+                  } : {}}
+                  transition={{ duration: 0.8 }}
+                  className={`absolute inset-0 rounded-3xl ${
+                    index === 0 
+                      ? 'bg-gradient-to-br from-aquamarine/10 to-tropical-indigo/10' 
+                      : 'bg-gradient-to-br from-tropical-indigo/10 to-aquamarine/10'
+                  }`}
+                />
+                
                 <div className="relative z-10">
                   {/* Avatar Placeholder */}
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className="w-40 h-40 mx-auto mb-8 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center text-oxford-blue font-bold text-6xl shadow-lg group-hover:shadow-aquamarine/50 transition-all duration-300"
+                    className={`w-40 h-40 mx-auto mb-8 rounded-full flex items-center justify-center text-oxford-blue font-bold text-6xl shadow-lg group-hover:shadow-aquamarine/50 transition-all duration-300 ${
+                      index === 0
+                        ? 'bg-gradient-to-br from-aquamarine to-tropical-indigo'
+                        : 'bg-gradient-to-br from-tropical-indigo to-aquamarine'
+                    }`}
                   >
                     {member.name.charAt(0)}
                   </motion.div>
@@ -133,7 +211,7 @@ const Team = () => {
                     </motion.a>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -143,4 +221,4 @@ const Team = () => {
   )
 }
 
-export default Team;
+export default Team
