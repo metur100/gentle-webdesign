@@ -44,14 +44,6 @@ const CustomerCarousel = () => {
     { 
       name: 'Airbnb', 
       logo: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_B%C3%A9lo.svg'
-    },
-    { 
-      name: 'Uber', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Uber_Logo_2018.svg'
-    },
-    { 
-      name: 'Tesla', 
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png'
     }
   ]
 
