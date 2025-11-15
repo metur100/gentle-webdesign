@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
-import { HiArrowRight, HiSparkles, HiUser, HiCheckCircle } from 'react-icons/hi'
+import { HiArrowRight, HiUser, HiCheckCircle } from 'react-icons/hi'
+import ModelViewer from '@/components/ModelViewer'
 
 interface FormData {
   name: string
@@ -151,18 +152,17 @@ const AIQuestionnaire = () => {
 
   const currentQuestion = questions[step]
 
-useEffect(() => {
-  if (chatMessages.length === 0) {
-    setIsTyping(true)
-    const timeout = setTimeout(() => {
-      addMessage('fella', questions[0].question)
-      setIsTyping(false)
-    }, 800)
+  useEffect(() => {
+    if (chatMessages.length === 0) {
+      setIsTyping(true)
+      const timeout = setTimeout(() => {
+        addMessage('fella', questions[0].question)
+        setIsTyping(false)
+      }, 800)
 
-    return () => clearTimeout(timeout)
-  }
-}, [])
-
+      return () => clearTimeout(timeout)
+    }
+  }, [])
 
   useEffect(() => {
     // Scroll to bottom when new messages are added
@@ -319,9 +319,14 @@ Gentle Webdesign Team
           <div className="flex items-center gap-6">
             <motion.div 
               whileHover={{ scale: 1.05, rotate: 5 }}
-              className="w-20 h-20 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-2xl flex items-center justify-center shadow-xl shadow-aquamarine/20"
+              className="w-20 h-20 rounded-2xl flex items-center justify-center overflow-hidden"
             >
-              <HiSparkles className="text-black text-3xl" />
+              {/* 3D Avatar for Header - No Background */}
+              <ModelViewer
+                src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+                alt="Fella AI Assistant 3D Avatar"
+                className="w-full h-full"
+              />
             </motion.div>
             <div className="flex-1">
               <h1 className="text-3xl lg:text-4xl font-bold text-ghost-white mb-2">Fella AI Assistant</h1>
@@ -383,14 +388,19 @@ Gentle Webdesign Team
                 {/* Avatar - Bigger */}
                 <motion.div 
                   whileHover={{ scale: 1.1, rotate: 5 }}
-                  className={`flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${
+                  className={`flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden ${
                     message.type === 'fella' 
-                      ? 'bg-gradient-to-br from-aquamarine to-tropical-indigo shadow-aquamarine/20' 
-                      : 'bg-ghost-white/20 shadow-ghost-white/10'
+                      ? '' 
+                      : 'bg-ghost-white/20'
                   }`}
                 >
                   {message.type === 'fella' ? (
-                    <HiSparkles className="text-black text-2xl" />
+                    // 3D Avatar for Fella's messages - No Background
+                    <ModelViewer
+                      src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+                      alt="Fella AI Assistant 3D Avatar"
+                      className="w-full h-full"
+                    />
                   ) : (
                     <HiUser className="text-ghost-white text-2xl" />
                   )}
@@ -428,8 +438,13 @@ Gentle Webdesign Team
               exit={{ opacity: 0, y: -20 }}
               className="flex gap-6"
             >
-              <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-2xl flex items-center justify-center shadow-lg shadow-aquamarine/20">
-                <HiSparkles className="text-black text-2xl" />
+              <div className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden">
+                {/* 3D Avatar for Typing Indicator - No Background */}
+                <ModelViewer
+                  src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+                  alt="Fella AI Assistant 3D Avatar"
+                  className="w-full h-full"
+                />
               </div>
               <div className="bg-gradient-to-br from-ghost-white/10 to-ghost-white/5 border-2 border-ghost-white/20 rounded-3xl rounded-bl-none px-6 py-4 backdrop-blur-md shadow-xl">
                 <div className="flex gap-2">
@@ -558,9 +573,14 @@ Gentle Webdesign Team
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="w-24 h-24 bg-gradient-to-br from-aquamarine to-tropical-indigo rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-aquamarine/30"
+              className="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden"
             >
-              <HiCheckCircle className="text-black text-5xl" />
+              {/* 3D Avatar for Completion State - No Background */}
+              <ModelViewer
+                src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb"
+                alt="Fella AI Assistant 3D Avatar"
+                className="w-full h-full"
+              />
             </motion.div>
             <h2 className="text-3xl font-bold text-ghost-white mb-3">Vielen Dank!</h2>
             <p className="text-lg text-ghost-white/70">Ihre Anfrage wurde erfolgreich übermittelt.</p>
