@@ -3,9 +3,7 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: true
-  },
-  images: {
+    unoptimized: true, // This is CRUCIAL for static exports and local images
     domains: [
       'upload.wikimedia.org',
       'modelviewer.dev',
