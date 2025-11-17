@@ -216,12 +216,12 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="group relative inline-block"
             >
-              <div className="relative w-48 sm:w-56 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-32 sm:w-40 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/legal-cockpit-seal.svg"
                   alt="Legal Cockpit - Agentur-Partner Rechtssicherheit"
-                  width={224}
-                  height={224}
+                  width={160}
+                  height={160}
                   className="w-full h-auto"
                   priority={false}
                 />

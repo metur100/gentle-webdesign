@@ -5,6 +5,7 @@ import Team from '@/components/Team'
 import Reviews from '@/components/Reviews'
 import FAQ from '@/components/FAQ'
 import NeedProject from '@/components/NeedProject'
+import Blog from '@/components/Blog'
 import CustomerCarousel from '@/components/CustomerCarousel'
 import Footer from '@/components/Footer'
 import Navigation from '@/components/Navigation'
@@ -22,6 +23,7 @@ export default function Home() {
         <Reviews />
         <FAQ />
         <NeedProject />
+        <Blog />
         <Footer />
       </main>
     </>

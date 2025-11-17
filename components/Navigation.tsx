@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
+import { useRouter } from 'next/navigation'
 import BookingModal from './BookingModal'
 
 const Navigation = () => {
+  const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
@@ -19,9 +21,7 @@ const Navigation = () => {
   }, [])
 
   const handleContact = () => {
-    const subject = encodeURIComponent('Projektanfrage - Gentle Webdesign')
-    const body = encodeURIComponent('Sehr geehrtes Team von Gentle Webdesign,\n\nich interessiere mich für Ihre Dienstleistungen und würde gerne mehr erfahren.\n\nMit freundlichen Grüßen')
-    window.open(`mailto:info@gentle-webdesign.com?subject=${subject}&body=${body}`, '_blank')
+    router.push('/kontakt')
   }
 
   const navItems = [

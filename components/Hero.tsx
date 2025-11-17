@@ -205,11 +205,28 @@ useEffect(() => {
                 style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
                 className="leading-[0.9]"
               >
-                <div className="text-ghost-white bg-gradient-to-r from-ghost-white to-ghost-white/90 bg-clip-text text-transparent whitespace-nowrap overflow-visible">
+                <motion.div
+                  animate={{
+                    backgroundPosition: ['0% center', '200% center'],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                  style={{
+                    backgroundImage: 'linear-gradient(300deg, #01FFA9 0%, #A97AFF 25%, #01FFA9 50%, #A97AFF 75%, #01FFA9 100%)',
+                    backgroundSize: '400% 100%',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                  }}
+                  className="whitespace-nowrap overflow-visible"
+                >
                   <span className="text-[clamp(8rem,13vw,10rem)] inline-block">
                     GENTLE WEBDESIGN
                   </span>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
 
