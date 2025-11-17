@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { HiClock, HiArrowRight } from 'react-icons/hi'
+import { HiClock, HiArrowLeft } from 'react-icons/hi'
+import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 
 const BLOG_POSTS = [
   {
@@ -67,69 +69,74 @@ const BLOG_POSTS = [
   },
 ]
 
-const Blog = () => {
-  // Show only first 3 posts
-  const displayedPosts = BLOG_POSTS.slice(0, 3)
-
+export default function BlogPage() {
   return (
-    <section id="blog" className="relative overflow-hidden bg-white py-32 lg:py-40">
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-aquamarine/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-tropical-indigo/5 rounded-full blur-[100px]" />
-      </div>
+    <>
+      <Navigation />
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-8 lg:px-16">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-16">
-          <div className="flex-1">
+      <main className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-oxford-blue via-oxford-blue to-oxford-blue/95 py-32">
+          {/* Background Effects */}
+          <div className="absolute inset-0">
+            <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-aquamarine/10 rounded-full blur-[120px]" />
+            <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-tropical-indigo/10 rounded-full blur-[100px]" />
+          </div>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16">
+            {/* Back Button */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
+            >
+              <Link href="/">
+                <motion.button
+                  whileHover={{ x: -5 }}
+                  className="flex items-center gap-2 text-ghost-white/80 hover:text-aquamarine transition-colors duration-300"
+                >
+                  <HiArrowLeft className="w-5 h-5" />
+                  <span>Zurück zur Startseite</span>
+                </motion.button>
+              </Link>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
             >
               <p className="text-aquamarine font-bold text-lg mb-4 uppercase tracking-wider">
                 Insights & Wissen
               </p>
-              <h2 className="text-5xl lg:text-7xl font-black mb-6 text-gray-900">
+              <h1 className="text-5xl lg:text-7xl font-black mb-6">
                 <span className="bg-gradient-to-r from-aquamarine via-tropical-indigo to-aquamarine bg-clip-text text-transparent">
-                  Blog & Tutorials
+                  Alle Artikel
                 </span>
-              </h2>
-              <p className="text-xl lg:text-2xl text-gray-600 max-w-2xl">
+              </h1>
+              <p className="text-xl lg:text-2xl text-ghost-white/80 max-w-3xl mx-auto">
                 Praktisches Wissen zu Web-Development, KI-Integration und digitalen Trends
               </p>
             </motion.div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Link href="/blog">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-oxford-blue text-oxford-blue font-bold rounded-full hover:bg-oxford-blue hover:text-ghost-white transition-all duration-300 flex items-center gap-2"
-              >
-                Alle Artikel
-                <HiArrowRight className="w-5 h-5" />
-              </motion.button>
-            </Link>
-          </motion.div>
-        </div>
+        </section>
 
         {/* Blog Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayedPosts.map((post, index) => (
-            <BlogCard key={post.id} post={post} index={index} />
-          ))}
-        </div>
-      </div>
-    </section>
+        <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6 lg:px-16">
+            <div className="grid md:grid-cols-2 gap-8">
+              {BLOG_POSTS.map((post, index) => (
+                <BlogCard key={post.id} post={post} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
   )
 }
 
@@ -156,7 +163,7 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
 
             {/* Category Badge */}
             <div className="absolute top-6 left-6 z-10">
-              <span className={`px-4 py-2 bg-white/95 backdrop-blur-sm text-oxford-blue font-bold rounded-full text-sm shadow-lg`}>
+              <span className="px-4 py-2 bg-white/95 backdrop-blur-sm text-oxford-blue font-bold rounded-full text-sm shadow-lg">
                 {post.category}
               </span>
             </div>
@@ -201,5 +208,3 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
     </motion.article>
   )
 }
-
-export default Blog
