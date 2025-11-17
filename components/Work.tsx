@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { HiExternalLink } from 'react-icons/hi'
+import Image from 'next/image'
 
 // Text content configuration for consistency
 const content = {
@@ -14,32 +15,84 @@ const content = {
     },
     items: [
       {
-        title: 'E-Commerce Platform',
+        title: 'Emma Solution',
         category: 'Full-Stack Development',
-        description: 'Eine moderne E-Commerce-Plattform mit React, Node.js und Azure Cloud Integration.',
-        tags: ['React', 'Next.js', 'Azure', 'Stripe'],
+        description: 'Umfassende Logistik-Management-Plattform mit Web-App, Backend-API und Android-App für Fracht- und Fahrzeugverwaltung mit Echtzeit-Tracking.',
+        tags: ['React', 'TypeScript', 'ASP.NET Core 8', 'Android', 'Azure SQL'],
         color: 'from-aquamarine to-tropical-indigo',
+        image: '/emma.png',
+        url: 'https://emmasolution.com/',
+        imagePosition: 'object-top' // Show top of website (header/navigation)
       },
       {
-        title: 'AI-Chatbot System',
-        category: 'KI-Integration',
-        description: 'Intelligentes Chatbot-System mit Natural Language Processing für Kundenservice.',
-        tags: ['Python', 'OpenAI', 'Azure AI', 'React'],
+        title: 'Gentle Track',
+        category: 'CRM System',
+        description: 'Projektmanagement-System mit React Frontend und ASP.NET Core Backend für Echtzeit-Zusammenarbeit und umfassende Berichterstattung.',
+        tags: ['React', 'Vite', 'ASP.NET Core 8', 'MS SQL', 'Multi-language'],
         color: 'from-tropical-indigo to-aquamarine',
+        image: '/gentletrack.png',
+        url: 'https://f7e2b27f.gentle-track-ui.pages.dev/',
+        imagePosition: 'object-center' // Show main dashboard area
       },
       {
-        title: 'CRM Dashboard',
+        title: 'Creative Hairstyling',
         category: 'Web-App',
-        description: 'Umfassendes CRM-System mit SharePoint-Integration und Power Automate Workflows.',
-        tags: ['React', '.NET Core', 'SharePoint', 'SQL'],
+        description: 'Moderne Friseur-Website entwickelt mit React und Vite für schnelle Performance und reaktionsschnelle Benutzeroberfläche.',
+        tags: ['React', 'TypeScript', 'Vite', 'Responsive Design'],
         color: 'from-aquamarine to-oxford-blue',
+        image: '/creativhairstyling.png',
+        url: 'https://creative-hairstyling-3u6e.vercel.app/',
+        imagePosition: 'object-top' // Show hero section
       },
       {
-        title: 'Corporate Website',
+        title: 'Hautliebe & Laser',
         category: 'Webdesign',
-        description: 'Elegante Corporate Website mit modernem Design und optimaler Performance.',
-        tags: ['Next.js', 'Tailwind', 'Framer Motion', 'SEO'],
+        description: 'Professionelle WordPress-Website für Hautpflege und Laser-Behandlungen mit modernem Design und optimaler Performance.',
+        tags: ['WordPress', 'PHP', 'Custom Theme', 'SEO'],
         color: 'from-tropical-indigo to-oxford-blue',
+        image: '/hautliebe.png',
+        url: 'https://hautliebeundlaser.de/',
+        imagePosition: 'object-top' // Show header and services
+      },
+      {
+        title: 'JJ Immobilienpartner',
+        category: 'Webdesign',
+        description: 'Elegante Immobilien-Website mit Next.js für optimale SEO-Performance und moderne Benutzererfahrung.',
+        tags: ['Next.js', 'React', 'TypeScript', 'SEO'],
+        color: 'from-aquamarine to-tropical-indigo',
+        image: '/janjacobi.png',
+        url: 'https://www.jj-immobilienpartner.de/',
+        imagePosition: 'object-top' // Show property listings
+      },
+      {
+        title: 'Kabelbrücken24',
+        category: 'E-Commerce',
+        description: 'E-Commerce-Plattform für Kabelbrücken mit Next.js, optimiert für Performance und Conversion.',
+        tags: ['Next.js', 'React', 'TypeScript', 'E-Commerce'],
+        color: 'from-tropical-indigo to-aquamarine',
+        image: '/kabelbruecken.png',
+        url: 'https://www.kabelbruecken24.de/',
+        imagePosition: 'object-center' // Show product catalog
+      },
+      {
+        title: 'Skinbloom Aesthetics',
+        category: 'Webdesign',
+        description: 'Ästhetische Klinik-Website mit Next.js für professionelle Präsentation und optimale Ladezeiten.',
+        tags: ['Next.js', 'React', 'TypeScript', 'Responsive Design'],
+        color: 'from-aquamarine to-oxford-blue',
+        image: '/skinbloom.png',
+        url: 'https://www.skinbloom-aesthetics.ch/',
+        imagePosition: 'object-top' // Show treatments section
+      },
+      {
+        title: 'NRW Real Estate',
+        category: 'Webdesign',
+        description: 'Immobilienportal mit Next.js für effiziente Darstellung von Immobilienangeboten und SEO-Optimierung.',
+        tags: ['Next.js', 'React', 'TypeScript', 'SEO'],
+        color: 'from-tropical-indigo to-oxford-blue',
+        image: '/nrwrealestate.png',
+        url: 'https://www.nrwrealestate.de/',
+        imagePosition: 'object-center' // Show featured properties
       },
     ]
   }
@@ -69,52 +122,59 @@ const Work = () => {
   const cardY = useTransform(scrollYProgress, [0, 0.3, 0.6], [100, 0, 0])
   const cardOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 1])
 
-  // Wheel scroll handler for overlapping effect
-  useEffect(() => {
-    const projectsContainer = projectsContainerRef.current
-    if (!projectsContainer) return
+  // Wheel scroll handler with boundary detection
+useEffect(() => {
+  const projectsContainer = projectsContainerRef.current
+  if (!projectsContainer) return
 
-    let ticking = false
-    const onWheel = (e: WheelEvent) => {
-      const target = e.target as HTMLElement
-      const isInsideProjectsContainer = projectsContainer.contains(target)
-      
-      if (isInsideProjectsContainer) {
-        const isProjectContent = target.closest('.project-box-content')
-        if (isProjectContent) {
-          e.preventDefault()
-          
-          if (ticking || isScrolling) return
-          ticking = true
-          setIsScrolling(true)
+  let ticking = false
+  const onWheel = (e: WheelEvent) => {
+    const target = e.target as HTMLElement
+    const isInsideProjectsContainer = projectsContainer.contains(target)
+    
+    if (isInsideProjectsContainer) {
+      const isProjectContent = target.closest('.project-box-content')
+      if (isProjectContent) {
+        // Check if we're at boundaries and should allow natural scroll
+        const isScrollingDown = e.deltaY > 10
+        const isScrollingUp = e.deltaY < -10
+        const isAtLastProject = activeProject === content.work.items.length - 1
+        const isAtFirstProject = activeProject === 0
 
-          if (e.deltaY > 10) {
-            setActiveProject((current) => {
-              if (current === content.work.items.length - 1) {
-                return 0
-              }
-              return Math.min(current + 1, content.work.items.length - 1)
-            })
-          } else if (e.deltaY < -10) {
-            setActiveProject((current) => {
-              if (current === 0) {
-                return content.work.items.length - 1
-              }
-              return Math.max(current - 1, 0)
-            })
-          }
-
-          setTimeout(() => {
-            ticking = false
-            setIsScrolling(false)
-          }, 600)
+        // Allow natural scroll at boundaries to continue to next/previous section
+        if ((isScrollingDown && isAtLastProject) || (isScrollingUp && isAtFirstProject)) {
+          // Don't prevent default, allow natural scrolling
+          return
         }
+
+        // Prevent default for project navigation
+        e.preventDefault()
+        
+        if (ticking || isScrolling) return
+        ticking = true
+        setIsScrolling(true)
+
+        if (isScrollingDown) {
+          setActiveProject((current) => {
+            return Math.min(current + 1, content.work.items.length - 1)
+          })
+        } else if (isScrollingUp) {
+          setActiveProject((current) => {
+            return Math.max(current - 1, 0)
+          })
+        }
+
+        setTimeout(() => {
+          ticking = false
+          setIsScrolling(false)
+        }, 600)
       }
     }
+  }
 
-    document.addEventListener('wheel', onWheel, { passive: false })
-    return () => document.removeEventListener('wheel', onWheel)
-  }, [isScrolling])
+  document.addEventListener('wheel', onWheel, { passive: false })
+  return () => document.removeEventListener('wheel', onWheel)
+}, [isScrolling, activeProject])  // WICHTIG: activeProject zu dependencies hinzufügen!
 
   // Keyboard navigation
   useEffect(() => {
@@ -141,6 +201,10 @@ const Work = () => {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
+
+  const handleProjectClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <section id="work" ref={ref} className="py-32 lg:py-40 relative overflow-hidden bg-black">
@@ -270,11 +334,14 @@ const Work = () => {
                     transformStyle: 'preserve-3d'
                   }}
                 >
-                  <div className="project-box-content group relative cursor-pointer">
+                  <div 
+                    className="project-box-content group relative cursor-pointer"
+                    onClick={() => handleProjectClick(project.url)}
+                  >
                     {/* Background shine effect on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-aquamarine/20 to-tropical-indigo/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 group-hover:scale-105" />
                     
-                    <div className="relative h-[550px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
+                    <div className="relative h-[650px] bg-gradient-to-br from-gray-900 to-black border border-aquamarine/20 rounded-3xl overflow-hidden hover:border-aquamarine/50 transition-all duration-500 shadow-2xl backdrop-blur-sm">
                       {/* Background Gradient */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
                       
@@ -304,6 +371,35 @@ const Work = () => {
                       {/* Content */}
                       <div className="relative z-10 h-full p-10 flex flex-col justify-between">
                         <div>
+                          {/* Project Image with Optimized Positioning */}
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="relative w-full h-48 mb-6 rounded-2xl overflow-hidden border border-aquamarine/20 group-hover:border-aquamarine/40 transition-colors duration-300"
+                          >
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              className={`object-cover ${project.imagePosition || 'object-top'} group-hover:scale-105 transition-transform duration-500`}
+                              quality={90}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                            
+                            {/* Position Indicator */}
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              whileHover={{ opacity: 1, scale: 1 }}
+                              className="absolute top-3 right-3 bg-black/70 text-ghost-white text-xs px-2 py-1 rounded-full backdrop-blur-sm"
+                            >
+                              {project.imagePosition === 'object-top' ? 'Header-Bereich' : 
+                               project.imagePosition === 'object-center' ? 'Hauptinhalt' : 'Website'}
+                            </motion.div>
+                          </motion.div>
+
                           {/* Category Badge */}
                           <motion.span 
                             initial={{ opacity: 0, scale: 0.8 }}

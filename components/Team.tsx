@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { HiMail } from 'react-icons/hi'
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 
 // Text content configuration for consistency
 const content = {
@@ -19,14 +20,16 @@ const content = {
         role: 'Founder & Lead Developer',
         description: 'Full-Stack Entwickler mit Expertise in React, .NET und Azure Cloud Solutions.',
         expertise: ['React', '.NET Core', 'Azure Cloud', 'AI Integration'],
-        initialX: -600
+        initialX: -600,
+        image: '/berkcan.jpg'
       },
       {
         name: 'Medin Turkes',
         role: 'Backend Specialist',
         description: 'Experte für skalierbare Backend-Architekturen und Datenbank-Design.',
         expertise: ['C# .NET', 'SQL', 'API Design', 'DevOps', "NoSQL"],
-        initialX: 600
+        initialX: 600,
+        image: '/medin.png'
       },
     ]
   }
@@ -50,31 +53,31 @@ const Team = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [0.8, 1])
   const rotate = useTransform(scrollYProgress, [0, 1], [5, 0])
 
-  // Team member movement - start VERY separated and come together later
-  const member1X = useTransform(scrollYProgress, [0, 0.3, 0.6], [-600, -600, 0])
-  const member2X = useTransform(scrollYProgress, [0, 0.3, 0.6], [600, 600, 0])
+  // Team member movement - FASTER: start separated and come together earlier
+  const member1X = useTransform(scrollYProgress, [0, 0.2, 0.5], [-600, -600, 0])
+  const member2X = useTransform(scrollYProgress, [0, 0.2, 0.5], [600, 600, 0])
   
-  // Opacity and scale for collision effect - moved later
-  const collisionScale = useTransform(scrollYProgress, [0.55, 0.6, 0.65], [1, 1.15, 1])
-  const collisionOpacity = useTransform(scrollYProgress, [0.55, 0.6, 0.65], [1, 0.6, 1])
+  // Opacity and scale for collision effect - moved earlier to match faster animation
+  const collisionScale = useTransform(scrollYProgress, [0.45, 0.5, 0.55], [1, 1.15, 1])
+  const collisionOpacity = useTransform(scrollYProgress, [0.45, 0.5, 0.55], [1, 0.6, 1])
 
-  // Section opacity - fade in later
+  // Section opacity - fade in earlier
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
 
-  // Detect collision - moved later
+  // Detect collision - moved earlier
   const unsubscribeRef = useRef<(() => void) | null>(null)
   
   if (typeof window !== 'undefined') {
     unsubscribeRef.current?.()
     unsubscribeRef.current = scrollYProgress.on('change', (latest) => {
-      if (latest >= 0.58 && latest <= 0.62 && !collisionTriggered.current) {
+      if (latest >= 0.48 && latest <= 0.52 && !collisionTriggered.current) {
         collisionTriggered.current = true
         setHasCollided(true)
         
         // Reset after animation
         setTimeout(() => {
           setHasCollided(false)
-        }, 1000)
+        }, 800) // Slightly shorter timeout
       }
     })
   }
@@ -192,7 +195,7 @@ const Team = () => {
                   rotate: index === 0 ? [0, -3, 2, 0] : [0, 3, -2, 0],
                 } : {}}
                 transition={{ 
-                  duration: 0.8,
+                  duration: 0.6, // Faster collision animation
                   times: [0, 0.4, 0.7, 1],
                   ease: "easeOut"
                 }}
@@ -220,23 +223,9 @@ const Team = () => {
                     ease: 'linear',
                   }}
                 />
-
-                {/* Collision Glow Effect */}
-                <motion.div
-                  animate={hasCollided ? {
-                    opacity: [0, 0.4, 0],
-                    scale: [1, 1.3, 1.8]
-                  } : {}}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className={`absolute inset-0 rounded-3xl ${
-                    index === 0 
-                      ? 'bg-gradient-to-br from-aquamarine/20 to-tropical-indigo/20' 
-                      : 'bg-gradient-to-br from-tropical-indigo/20 to-aquamarine/20'
-                  }`}
-                />
                 
                 <div className="relative z-10">
-                  {/* Avatar Placeholder with Enhanced Animation */}
+                  {/* Profile Image with Enhanced Animation */}
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     whileInView={{ scale: 1, rotate: 0 }}
@@ -252,13 +241,30 @@ const Team = () => {
                       rotate: 5,
                       y: -5 
                     }}
-                    className={`w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center text-oxford-blue font-bold text-5xl shadow-lg group-hover:shadow-aquamarine/50 transition-all duration-300 relative ${
+                    className="w-32 h-32 mx-auto mb-6 rounded-full flex items-center justify-center overflow-hidden shadow-lg group-hover:shadow-aquamarine/50 transition-all duration-300 relative"
+                  >
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      width={128}
+                      height={128}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to initial if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.nextElementSibling?.classList.remove('hidden');
+                      }}
+                    />
+                    {/* Fallback initial display */}
+                    <div className={`hidden absolute inset-0 rounded-full items-center justify-center text-oxford-blue font-bold text-5xl ${
                       index === 0
                         ? 'bg-gradient-to-br from-aquamarine to-tropical-indigo'
                         : 'bg-gradient-to-br from-tropical-indigo to-aquamarine'
-                    }`}
-                  >
-                    {member.name.charAt(0)}
+                    }`}>
+                      {member.name.charAt(0)}
+                    </div>
+                    
                     {/* Pulsing effect */}
                     <motion.div
                       className="absolute inset-0 rounded-full border-2 border-aquamarine/30"
