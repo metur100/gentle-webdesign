@@ -32,7 +32,7 @@ const content = {
         color: 'from-tropical-indigo to-aquamarine',
         image: '/gentletrack.png',
         url: 'https://f7e2b27f.gentle-track-ui.pages.dev/',
-        imagePosition: 'object-center' // Show main dashboard area
+        imagePosition: 'object-top' // Show main dashboard area
       },
       {
         title: 'Creative Hairstyling',
@@ -42,7 +42,7 @@ const content = {
         color: 'from-aquamarine to-oxford-blue',
         image: '/creativhairstyling.png',
         url: 'https://creative-hairstyling-3u6e.vercel.app/',
-        imagePosition: 'object-top' // Show hero section
+        imagePosition: 'object-[center_40%]' // Show text in the middle
       },
       {
         title: 'Hautliebe & Laser',
@@ -52,7 +52,7 @@ const content = {
         color: 'from-tropical-indigo to-oxford-blue',
         image: '/hautliebe.png',
         url: 'https://hautliebeundlaser.de/',
-        imagePosition: 'object-top' // Show header and services
+        imagePosition: 'object-center' // Show header and services
       },
       {
         title: 'JJ Immobilienpartner',
@@ -62,7 +62,7 @@ const content = {
         color: 'from-aquamarine to-tropical-indigo',
         image: '/janjacobi.png',
         url: 'https://www.jj-immobilienpartner.de/',
-        imagePosition: 'object-top' // Show property listings
+        imagePosition: 'object-[center_40%]'
       },
       {
         title: 'Kabelbrücken24',
@@ -82,7 +82,7 @@ const content = {
         color: 'from-aquamarine to-oxford-blue',
         image: '/skinbloom.png',
         url: 'https://www.skinbloom-aesthetics.ch/',
-        imagePosition: 'object-top' // Show treatments section
+        imagePosition: 'object-[center_40%]' // Show "Verleihen Sie Ihrer Haut neuen Glanz."
       },
       {
         title: 'NRW Real Estate',
@@ -92,7 +92,7 @@ const content = {
         color: 'from-tropical-indigo to-oxford-blue',
         image: '/nrwrealestate.png',
         url: 'https://www.nrwrealestate.de/',
-        imagePosition: 'object-center' // Show featured properties
+        imagePosition: 'object-[center_40%]' // Show text in the middle with top padding
       },
     ]
   }
@@ -396,7 +396,8 @@ useEffect(() => {
                               className="absolute top-3 right-3 bg-black/70 text-ghost-white text-xs px-2 py-1 rounded-full backdrop-blur-sm"
                             >
                               {project.imagePosition === 'object-top' ? 'Header-Bereich' : 
-                               project.imagePosition === 'object-center' ? 'Hauptinhalt' : 'Website'}
+                               project.imagePosition === 'object-center' ? 'Hauptinhalt' : 
+                               project.imagePosition?.includes('center') ? 'Zentrierter Inhalt' : 'Website'}
                             </motion.div>
                           </motion.div>
 
