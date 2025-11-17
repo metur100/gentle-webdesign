@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
+import BookingModal from './BookingModal'
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,10 +69,22 @@ const Navigation = () => {
                   </motion.a>
                 ))}
                 <motion.button
-                  onClick={handleContact}
+                  onClick={() => {
+                    setIsBookingModalOpen(true)
+                    setIsMobileMenuOpen(false)
+                  }}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 }}
+                  className="block w-full text-center px-6 py-4 bg-[#A97AFF] hover:bg-[#8B5FE6] text-ghost-white font-bold rounded-full text-xl transition-all duration-300"
+                >
+                  Termin buchen
+                </motion.button>
+                <motion.button
+                  onClick={handleContact}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 }}
                   className="block w-full text-center px-6 py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-xl"
                 >
                   Kontakt
@@ -86,8 +100,9 @@ const Navigation = () => {
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="fixed bottom-0 inset-x-0 z-50 mb-8 flex justify-center pointer-events-none"
+        className="fixed bottom-0 inset-x-0 z-50 mb-8 flex justify-center items-center pointer-events-none px-4"
       >
+        {/* Main Navigation */}
         <motion.div
           className="pointer-events-auto px-8 py-5 bg-black/85 backdrop-blur-xl border border-ghost-white/20 rounded-full shadow-2xl hover:border-aquamarine/50 transition-all duration-300"
           whileHover={{ boxShadow: "0 0 30px rgba(1, 255, 169, 0.3)" }}
@@ -121,7 +136,26 @@ const Navigation = () => {
             </motion.button>
           </div>
         </motion.div>
+
+        {/* Booking Button - Separate from Navigation */}
+        <motion.button
+          onClick={() => setIsBookingModalOpen(true)}
+          initial={{ opacity: 0, scale: 0.9, x: 20 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ delay: 0.8 }}
+          whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(169, 122, 255, 0.6)" }}
+          whileTap={{ scale: 0.95 }}
+          className="pointer-events-auto ml-4 px-6 py-4 bg-[#A97AFF] hover:bg-[#8B5FE6] text-ghost-white font-bold rounded-full text-sm shadow-2xl border border-[#A97AFF]/50 hover:border-[#A97AFF] transition-all duration-300"
+        >
+          Termin buchen
+        </motion.button>
       </motion.nav>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+      />
     </>
   )
 }
