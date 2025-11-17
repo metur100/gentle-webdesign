@@ -52,14 +52,14 @@ const Footer = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-6"
+                className="mb-8"
               >
                 <Image
-                  src="/logo.png"
+                  src="/logo.svg"
                   alt="Gentle Webdesign"
-                  width={200}
-                  height={67}
-                  className="h-14 w-auto"
+                  width={280}
+                  height={94}
+                  className="h-20 w-auto"
                 />
               </motion.div>
               <motion.p
@@ -67,7 +67,7 @@ const Footer = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-gray-600 text-lg mb-6 max-w-md leading-relaxed"
+                className="text-gray-600 text-lg mb-8 max-w-md leading-relaxed"
               >
                 {content.footer.description}
               </motion.p>

@@ -185,13 +185,13 @@ useEffect(() => {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={contentControls}
-              className="flex justify-center mb-4"
+              className="flex justify-center mb-9"
             >
 <Image
-  src="/logo.png"
+  src="/logo.svg"
   alt="Gentle Webdesign"
-  width={800}         // ⬅ increase width
-  height={300}        // ⬅ increase height
+  width={1200}         // ⬅ increase width
+  height={600}        // ⬅ increase height
   className="h-56 w-auto"  // ⬅ increase display size (was h-44)
   priority
 />

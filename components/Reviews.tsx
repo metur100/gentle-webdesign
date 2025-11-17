@@ -89,7 +89,7 @@ const Reviews = () => {
             <span className="block text-ghost-white text-[clamp(3rem,8vw,6rem)]">
               {content.reviews.title.part1}
             </span>
-            <span className="block text-aquamarine text-[clamp(3rem,8vw,6rem)]">
+            <span className="block text-tropical-indigo text-[clamp(3rem,8vw,6rem)]">
               {content.reviews.title.part2}
             </span>
           </div>
