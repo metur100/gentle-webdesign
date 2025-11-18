@@ -18,7 +18,7 @@ const content = {
         company: 'TechStart GmbH',
         role: 'CEO',
         rating: 5,
-        text: 'Gentle Webdesign hat unsere Vision perfekt umgesetzt. Die Kommunikation war exzellent und das Ergebnis übertrifft unsere Erwartungen bei weitem.',
+        text: 'Gentle Group hat unsere Vision perfekt umgesetzt. Die Kommunikation war exzellent und das Ergebnis übertrifft unsere Erwartungen bei weitem.',
         project: 'E-Commerce Platform',
         color: 'from-aquamarine/10 to-tropical-indigo/10',
       },

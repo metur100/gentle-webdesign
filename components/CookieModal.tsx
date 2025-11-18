@@ -196,10 +196,10 @@ const CookieModal = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Gentle Webdesign',
+            name: 'Gentle Group',
             legalName: 'Berk-Can Atesoglu',
-            url: 'https://gentle-webdesign.com',
-            logo: 'https://gentle-webdesign.com/logo.svg',
+            url: 'https://gentle-Group.com',
+            logo: 'https://gentle-Group.com/logo.svg',
             description: 'Professionelle Webentwicklung, Softwarelösungen und KI-Integration aus Düsseldorf',
             address: {
               '@type': 'PostalAddress',
@@ -215,8 +215,8 @@ const CookieModal = () => {
               availableLanguage: ['de', 'en']
             },
             sameAs: [
-              'https://www.linkedin.com/company/gentle-webdesign',
-              'https://github.com/gentle-webdesign'
+              'https://www.linkedin.com/company/gentle-Group',
+              'https://github.com/gentle-Group'
             ]
           })
         }}
@@ -229,8 +229,8 @@ const CookieModal = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'Gentle Webdesign',
-            url: 'https://gentle-webdesign.com',
+            name: 'Gentle Group',
+            url: 'https://gentle-Group.com',
             description: 'Professionelle Webentwicklung, Softwarelösungen und KI-Integration',
             inLanguage: 'de-DE'
           })
@@ -244,10 +244,10 @@ const CookieModal = () => {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'ProfessionalService',
-            name: 'Gentle Webdesign',
-            image: 'https://gentle-webdesign.com/logo.svg',
-            '@id': 'https://gentle-webdesign.com',
-            url: 'https://gentle-webdesign.com',
+            name: 'Gentle Group',
+            image: 'https://gentle-Group.com/logo.svg',
+            '@id': 'https://gentle-Group.com',
+            url: 'https://gentle-Group.com',
             telephone: '+49-XXX-XXXXXXX',
             priceRange: '€€',
             address: {

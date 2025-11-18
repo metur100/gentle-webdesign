@@ -60,7 +60,7 @@ const BLOG_POSTS = [
     category: 'Web Development',
     categoryColor: 'from-tropical-indigo to-aquamarine',
     author: {
-      name: 'Team Gentle Webdesign',
+      name: 'Team Gentle Group',
       role: 'Development Team',
     },
     publishDate: '1. März 2024',
@@ -81,6 +81,8 @@ export default function BlogPage() {
           <div className="absolute inset-0">
             <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-aquamarine/10 rounded-full blur-[120px]" />
             <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-tropical-indigo/10 rounded-full blur-[100px]" />
+            {/* Animated grid pattern */}
+            <div className="absolute inset-0 bg-grid-pattern bg-[length:50px_50px] opacity-[0.02]" />
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16">
@@ -89,36 +91,76 @@ export default function BlogPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-8"
+              className="mb-16"
             >
               <Link href="/">
                 <motion.button
                   whileHover={{ x: -5 }}
-                  className="flex items-center gap-2 text-ghost-white/80 hover:text-aquamarine transition-colors duration-300"
+                  className="flex items-center gap-2 text-ghost-white/80 hover:text-aquamarine transition-colors duration-300 text-lg"
                 >
-                  <HiArrowLeft className="w-5 h-5" />
+                  <HiArrowLeft className="w-6 h-6" />
                   <span>Zurück zur Startseite</span>
                 </motion.button>
               </Link>
             </motion.div>
 
+            {/* Centered Header with FAQ Style */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
               className="text-center"
             >
-              <p className="text-aquamarine font-bold text-lg mb-4 uppercase tracking-wider">
+              <motion.span
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.6, 
+                  type: "spring", 
+                  stiffness: 200 
+                }}
+                className="inline-block px-6 py-3 bg-aquamarine/10 border border-aquamarine/30 rounded-full text-aquamarine font-semibold text-sm mb-8 backdrop-blur-sm"
+              >
                 Insights & Wissen
-              </p>
-              <h1 className="text-5xl lg:text-7xl font-black mb-6">
-                <span className="bg-gradient-to-r from-aquamarine via-tropical-indigo to-aquamarine bg-clip-text text-transparent">
-                  Alle Artikel
-                </span>
-              </h1>
-              <p className="text-xl lg:text-2xl text-ghost-white/80 max-w-3xl mx-auto">
+              </motion.span>
+              
+              <div style={{ fontWeight: 800, letterSpacing: '-0.02em' }} className="leading-[0.9] mb-8">
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.2,
+                    type: "spring",
+                    stiffness: 80
+                  }}
+                  className="block text-ghost-white text-[clamp(3rem,8vw,6rem)]"
+                >
+                  Alle
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.3,
+                    type: "spring",
+                    stiffness: 80
+                  }}
+                  className="block text-aquamarine text-[clamp(3rem,8vw,6rem)]"
+                >
+                  Artikel
+                </motion.span>
+              </div>
+
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-xl md:text-2xl lg:text-3xl text-ghost-white/80 max-w-4xl mx-auto"
+              >
                 Praktisches Wissen zu Web-Development, KI-Integration und digitalen Trends
-              </p>
+              </motion.p>
             </motion.div>
           </div>
         </section>
@@ -151,11 +193,23 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 100
+      }}
       className="group"
     >
       <Link href={`/blog/${post.slug}`}>
-        <div className="h-full bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-aquamarine/50 transition-all duration-500 hover:shadow-2xl hover:shadow-aquamarine/10 hover:-translate-y-2">
+        <motion.div 
+          className="h-full bg-gradient-to-br from-white to-gray-50 rounded-3xl overflow-hidden border border-gray-200 hover:border-aquamarine/50 transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-aquamarine/10 backdrop-blur-sm group-hover:scale-[1.02]"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {/* Hover Glow Effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/5 to-tropical-indigo/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+
           {/* Image Placeholder with Gradient */}
           <div className="relative h-64 overflow-hidden">
             <div className={`absolute inset-0 bg-gradient-to-br ${post.categoryColor} opacity-80`} />
@@ -173,14 +227,17 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
           </div>
 
           {/* Content */}
-          <div className="p-8">
+          <div className="p-8 relative z-10">
             {/* Title */}
-            <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-aquamarine transition-colors duration-300 line-clamp-2">
+            <h3 
+              className="text-2xl lg:text-3xl font-bold mb-4 text-gray-900 group-hover:text-aquamarine transition-colors duration-300 line-clamp-2 leading-tight"
+              style={{ fontWeight: 800, letterSpacing: '-0.02em' }}
+            >
               {post.title}
             </h3>
 
             {/* Excerpt */}
-            <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">
+            <p className="text-gray-600 text-lg mb-6 line-clamp-3 leading-relaxed">
               {post.excerpt}
             </p>
 
@@ -188,22 +245,22 @@ const BlogCard = ({ post, index }: BlogCardProps) => {
             <div className="pt-6 border-t border-gray-200 flex items-center justify-between">
               {/* Author */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 truncate">
+                <p className="text-base font-semibold text-gray-900 truncate" style={{ fontWeight: 700 }}>
                   {post.author.name}
                 </p>
-                <p className="text-xs text-gray-500 truncate">
+                <p className="text-sm text-gray-500 truncate">
                   {post.publishDate}
                 </p>
               </div>
 
               {/* Read Time */}
-              <div className="flex items-center gap-1.5 text-gray-500 ml-4 flex-shrink-0">
-                <HiClock className="w-4 h-4" />
-                <span className="text-sm">{post.readTime}</span>
+              <div className="flex items-center gap-2 text-gray-500 ml-4 flex-shrink-0">
+                <HiClock className="w-5 h-5" />
+                <span className="text-base">{post.readTime}</span>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </Link>
     </motion.article>
   )

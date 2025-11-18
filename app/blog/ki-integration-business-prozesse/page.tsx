@@ -1,7 +1,7 @@
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata = {
-  title: 'KI-Integration in Business-Prozesse: Praxisleitfaden 2024 | Gentle Webdesign',
+  title: 'KI-Integration in Business-Prozesse: Praxisleitfaden 2024 | Gentle Group',
   description: 'Von ChatGPT über Azure OpenAI bis zu Custom AI-Lösungen: Wie Sie KI gewinnbringend in Ihre Geschäftsprozesse integrieren.',
 }
 
@@ -58,7 +58,7 @@ Typische Metriken sind: Zeitersparnis bei wiederkehrenden Aufgaben, Steigerung d
 Unsere Erfahrung zeigt: Gut implementierte KI-Lösungen amortisieren sich oft innerhalb von 3-6 Monaten. Die langfristigen Effizienzgewinne sind dabei noch nicht eingerechnet.`
           }
         ],
-        conclusion: 'Die Integration von KI in Geschäftsprozesse ist kein Hexenwerk mehr. Mit den richtigen Tools und einer durchdachten Strategie können Sie signifikante Effizienzgewinne erzielen. Bei Gentle Webdesign begleiten wir Sie von der Konzeption bis zur Implementierung und sorgen dafür, dass Ihre KI-Lösung messbare Erfolge liefert.'
+        conclusion: 'Die Integration von KI in Geschäftsprozesse ist kein Hexenwerk mehr. Mit den richtigen Tools und einer durchdachten Strategie können Sie signifikante Effizienzgewinne erzielen. Bei Gentle Group begleiten wir Sie von der Konzeption bis zur Implementierung und sorgen dafür, dass Ihre KI-Lösung messbare Erfolge liefert.'
       }}
     />
   )

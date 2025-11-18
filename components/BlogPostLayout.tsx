@@ -211,7 +211,7 @@ const BlogPostLayout = ({
               </div>
             </div>
             <p className="text-gray-700">
-              Experte für moderne Web-Technologien und digitale Transformation bei Gentle Webdesign.
+              Experte für moderne Web-Technologien und digitale Transformation bei Gentle Group.
             </p>
           </motion.div>
 

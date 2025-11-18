@@ -105,11 +105,11 @@ Rahmenbedingungen:
 Wir werden uns innerhalb von 24 Stunden bei Ihnen melden.
 
 Mit freundlichen Grüßen
-Gentle Webdesign Team
+Gentle Group Team
     `.trim())
 
     // Open email client
-    window.open(`mailto:info@gentle-webdesign.com?subject=${subject}&body=${body}`, '_blank')
+    window.open(`mailto:info@gentle-Group.com?subject=${subject}&body=${body}`, '_blank')
     
     closeModal()
   }

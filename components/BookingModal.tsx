@@ -73,7 +73,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
               <div className="p-6 max-h-[70vh] overflow-y-auto">
                 <div
                   className="tidycal-embed min-h-[600px]"
-                  data-path="webdesigngentle"
+                  data-path="Groupgentle"
                 />
               </div>
             </div>

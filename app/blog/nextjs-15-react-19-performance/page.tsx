@@ -1,7 +1,7 @@
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata = {
-  title: 'Next.js 15 & React 19: Performance-Boost für moderne Web-Apps | Gentle Webdesign',
+  title: 'Next.js 15 & React 19: Performance-Boost für moderne Web-Apps | Gentle Group',
   description: 'Entdecken Sie die neuesten Features von Next.js 15 und React 19. Server Components, Streaming und App Router für blitzschnelle Performance.',
 }
 
@@ -58,7 +58,7 @@ Nutzen Sie die neuen Suspense-Features für elegantes Loading-State-Management. 
 Image-Optimierung ist mit dem Next.js Image-Component automatisch. Er lädt Bilder lazy, optimiert die Größe und verwendet moderne Formate wie WebP automatisch.`
           }
         ],
-        conclusion: 'Next.js 15 und React 19 setzen neue Maßstäbe für moderne Web-Entwicklung. Die Kombination aus Server Components, App Router und Turbopack ermöglicht es, extrem performante Anwendungen zu entwickeln, ohne Kompromisse bei der Developer Experience einzugehen. Bei Gentle Webdesign nutzen wir diese Technologien bereits produktiv und können die Performance-Verbesserungen bestätigen.'
+        conclusion: 'Next.js 15 und React 19 setzen neue Maßstäbe für moderne Web-Entwicklung. Die Kombination aus Server Components, App Router und Turbopack ermöglicht es, extrem performante Anwendungen zu entwickeln, ohne Kompromisse bei der Developer Experience einzugehen. Bei Gentle Group nutzen wir diese Technologien bereits produktiv und können die Performance-Verbesserungen bestätigen.'
       }}
     />
   )

@@ -1,7 +1,7 @@
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata = {
-  title: 'KI-Chatbot Integration: Der komplette Leitfaden 2024 | Gentle Webdesign',
+  title: 'KI-Chatbot Integration: Der komplette Leitfaden 2024 | Gentle Group',
   description: 'Von der Planung bis zum Go-Live: Wie Sie intelligente Chatbots erfolgreich in Ihre Website integrieren und Kundenservice automatisieren.',
 }
 
@@ -58,7 +58,7 @@ Die ersten Wochen nach dem Launch sind entscheidend: Wir analysieren alle Gespr�
 Nach etwa einem Monat erreichen gut trainierte Chatbots eine Erfolgsquote von über 80%. Das bedeutet: 80% aller Anfragen werden ohne menschliche Intervention gelöst – eine enorme Zeitersparnis.`
           }
         ],
-        conclusion: 'KI-Chatbots sind kein Zukunftsthema mehr, sondern heute schon Standard für professionellen Kundenservice. Die Investition amortisiert sich oft innerhalb weniger Monate durch eingesparte Personalkosten und gesteigerte Conversion-Rates. Bei Gentle Webdesign entwickeln wir maßgeschneiderte Chatbot-Lösungen, die perfekt auf Ihr Business zugeschnitten sind.'
+        conclusion: 'KI-Chatbots sind kein Zukunftsthema mehr, sondern heute schon Standard für professionellen Kundenservice. Die Investition amortisiert sich oft innerhalb weniger Monate durch eingesparte Personalkosten und gesteigerte Conversion-Rates. Bei Gentle Group entwickeln wir maßgeschneiderte Chatbot-Lösungen, die perfekt auf Ihr Business zugeschnitten sind.'
       }}
     />
   )

@@ -202,7 +202,7 @@ const Hero = () => {
             >
               <Image
                 src="/logo.svg"
-                alt="Gentle Webdesign"
+                alt="Gentle Group"
                 width={800}
                 height={400}
                 className="h-32 sm:h-40 lg:h-56 w-auto"
@@ -238,7 +238,7 @@ const Hero = () => {
                   className="whitespace-nowrap overflow-visible"
                 >
                   <span className="text-[clamp(3rem,10vw,10rem)] inline-block">
-                    GENTLE WEBDESIGN
+                    GENTLE GROUP
                   </span>
                 </motion.div>
               </motion.div>

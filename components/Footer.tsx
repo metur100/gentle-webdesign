@@ -8,14 +8,14 @@ import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa'
 // Text content configuration for consistency
 const content = {
   footer: {
-    description: "Wir sind Ihr Partner für innovative Softwarelösungen, modernes Webdesign und KI-Integration. Von der Idee bis zur Umsetzung – wir gestalten digitale Zukunft.",
+    description: "Wir sind Ihr Partner für innovative Softwarelösungen, modernes Group und KI-Integration. Von der Idee bis zur Umsetzung – wir gestalten digitale Zukunft.",
     navigation: {
       title: "Navigation",
       items: ['Services', 'Work', 'Team', 'Reviews', 'FAQ']
     },
     services: {
       title: "Services",
-      items: ['Webdesign', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack']
+      items: ['Group', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack']
     },
     legal: {
       copyright: "Alle Rechte vorbehalten.",
@@ -61,7 +61,7 @@ const Footer = () => {
               >
                 <Image
                   src="/logo.svg"
-                  alt="Gentle Webdesign"
+                  alt="Gentle Group"
                   width={280}
                   height={94}
                   className="h-20 w-auto"
@@ -239,14 +239,14 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="flex flex-col items-center md:items-start gap-2"
             >
-              <p>© {currentYear} Gentle Webdesign. {content.footer.legal.copyright}</p>
+              <p>© {currentYear} Gentle Group. {content.footer.legal.copyright}</p>
               <p className="text-sm text-gray-500">
                 Entwickelt von{' '}
                 <a
-                  href="https://gentle-webdesign.com"
+                  href="https://gentle-Group.com"
                   className="text-aquamarine hover:text-tropical-indigo transition-colors duration-300"
                 >
-                  Gentle Webdesign
+                  Gentle Group
                 </a>
               </p>
             </motion.div>

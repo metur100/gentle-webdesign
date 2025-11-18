@@ -46,7 +46,7 @@ const content = {
       },
       {
         title: 'Hautliebe & Laser',
-        category: 'Webdesign',
+        category: 'Group',
         description: 'Professionelle WordPress-Website für Hautpflege und Laser-Behandlungen mit modernem Design und optimaler Performance.',
         tags: ['WordPress', 'PHP', 'Custom Theme', 'SEO'],
         color: 'from-tropical-indigo to-oxford-blue',
@@ -56,7 +56,7 @@ const content = {
       },
       {
         title: 'JJ Immobilienpartner',
-        category: 'Webdesign',
+        category: 'Group',
         description: 'Elegante Immobilien-Website mit Next.js für optimale SEO-Performance und moderne Benutzererfahrung.',
         tags: ['Next.js', 'React', 'TypeScript', 'SEO'],
         color: 'from-aquamarine to-tropical-indigo',
@@ -76,7 +76,7 @@ const content = {
       },
       {
         title: 'Skinbloom Aesthetics',
-        category: 'Webdesign',
+        category: 'Group',
         description: 'Ästhetische Klinik-Website mit Next.js für professionelle Präsentation und optimale Ladezeiten.',
         tags: ['Next.js', 'React', 'TypeScript', 'Responsive Design'],
         color: 'from-aquamarine to-oxford-blue',
@@ -86,7 +86,7 @@ const content = {
       },
       {
         title: 'NRW Real Estate',
-        category: 'Webdesign',
+        category: 'Group',
         description: 'Immobilienportal mit Next.js für effiziente Darstellung von Immobilienangeboten und SEO-Optimierung.',
         tags: ['Next.js', 'React', 'TypeScript', 'SEO'],
         color: 'from-tropical-indigo to-oxford-blue',

@@ -1,7 +1,7 @@
 import BlogPostLayout from '@/components/BlogPostLayout'
 
 export const metadata = {
-  title: 'TypeScript Best Practices: Type-Safety für Enterprise-Apps | Gentle Webdesign',
+  title: 'TypeScript Best Practices: Type-Safety für Enterprise-Apps | Gentle Group',
   description: 'Fortgeschrittene TypeScript-Patterns für sichere und wartbare Enterprise-Anwendungen. Generics, Utility Types und mehr.',
 }
 
@@ -12,7 +12,7 @@ export default function BlogPost() {
       category="Web Development"
       categoryColor="from-tropical-indigo to-aquamarine"
       author={{
-        name: 'Team Gentle Webdesign',
+        name: 'Team Gentle Group',
         role: 'Development Team'
       }}
       publishDate="1. März 2024"
@@ -58,7 +58,7 @@ Statt try-catch mit any-Errors können Sie Result-Types verwenden: type Result<T
 Ein weiterer Vorteil: TypeScript kann bei Discriminated Unions automatisch Type Guards durchführen. Nach einem success-Check weiß TypeScript, dass der data-Pfad existiert – ohne zusätzliche Type Assertions.`
           }
         ],
-        conclusion: 'TypeScript Best Practices sind kein Nice-to-Have, sondern essentiell für wartbare Enterprise-Anwendungen. Strict Mode, Generics, Utility Types und Discriminated Unions bilden das Fundament für type-sichere, robuste Codebases. Bei Gentle Webdesign setzen wir diese Patterns in allen unseren Projekten ein – mit messbaren Erfolgen bei Code-Qualität und Wartbarkeit.'
+        conclusion: 'TypeScript Best Practices sind kein Nice-to-Have, sondern essentiell für wartbare Enterprise-Anwendungen. Strict Mode, Generics, Utility Types und Discriminated Unions bilden das Fundament für type-sichere, robuste Codebases. Bei Gentle Group setzen wir diese Patterns in allen unseren Projekten ein – mit messbaren Erfolgen bei Code-Qualität und Wartbarkeit.'
       }}
     />
   )

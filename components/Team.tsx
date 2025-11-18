@@ -12,7 +12,7 @@ const content = {
     badge: "Unser Team",
     title: {
       part1: "Die Köpfe hinter",
-      part2: "Gentle Webdesign"
+      part2: "Gentle Group"
     },
     members: [
       {
