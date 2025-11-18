@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Script from 'next/script'
+import CookieModal from '@/components/CookieModal'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -82,113 +82,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-
-        {/* Legal Cockpit Cookie Consent */}
-        <Script
-          id="legal-cockpit-consent"
-          src="https://app.cockpit.legal/static/cookieconsent-v2.js?tools=Klaviyo,Cookiebot,Google%20Tag%20Manager,LinkedIn%20Insight%20Tag"
-          data-cc-tools="Klaviyo,Cookiebot,Google Tag Manager,LinkedIn Insight Tag"
-          data-cc-privacy="https://gentle-webdesign.com/datenschutzerklaerung"
-          data-cc-imprint="https://gentle-webdesign.com/impressum"
-          data-cc-color="#010A30"
-          data-cc-theme="custom"
-          data-cc-language="browser"
-          data-cc-non-eu-consent="false"
-          data-cc-enable-logs="true"
-          strategy="afterInteractive"
-        />
-
-        {/* Structured Data - Organization */}
-        <Script
-          id="structured-data-organization"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'Gentle Webdesign',
-              legalName: 'Berk-Can Atesoglu',
-              url: 'https://gentle-webdesign.com',
-              logo: 'https://gentle-webdesign.com/logo.svg',
-              description: 'Professionelle Webentwicklung, Softwarelösungen und KI-Integration aus Düsseldorf',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Oberbilker Allee 319',
-                addressLocality: 'Düsseldorf',
-                postalCode: '40227',
-                addressCountry: 'DE'
-              },
-              contactPoint: {
-                '@type': 'ContactPoint',
-                contactType: 'customer service',
-                areaServed: 'DE',
-                availableLanguage: ['de', 'en']
-              },
-              sameAs: [
-                'https://www.linkedin.com/company/gentle-webdesign',
-                'https://github.com/gentle-webdesign'
-              ]
-            })
-          }}
-        />
-
-        {/* Structured Data - WebSite */}
-        <Script
-          id="structured-data-website"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'Gentle Webdesign',
-              url: 'https://gentle-webdesign.com',
-              description: 'Professionelle Webentwicklung, Softwarelösungen und KI-Integration',
-              inLanguage: 'de-DE'
-            })
-          }}
-        />
-
-        {/* Structured Data - Local Business */}
-        <Script
-          id="structured-data-local-business"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'ProfessionalService',
-              name: 'Gentle Webdesign',
-              image: 'https://gentle-webdesign.com/logo.svg',
-              '@id': 'https://gentle-webdesign.com',
-              url: 'https://gentle-webdesign.com',
-              telephone: '+49-XXX-XXXXXXX',
-              priceRange: '€€',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Oberbilker Allee 319',
-                addressLocality: 'Düsseldorf',
-                postalCode: '40227',
-                addressCountry: 'DE'
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: 51.2099,
-                longitude: 6.7727
-              },
-              openingHoursSpecification: {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: [
-                  'Monday',
-                  'Tuesday',
-                  'Wednesday',
-                  'Thursday',
-                  'Friday'
-                ],
-                opens: '09:00',
-                closes: '18:00'
-              }
-            })
-          }}
-        />
+        <CookieModal />
       </body>
     </html>
   )

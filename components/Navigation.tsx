@@ -30,6 +30,7 @@ const Navigation = () => {
     { label: 'Team', href: '#team' },
     { label: 'Reviews', href: '#reviews' },
     { label: 'FAQ', href: '#faq' },
+    { label: 'Contact', href: '/kontakt' },
   ]
 
   return (
@@ -68,27 +69,6 @@ const Navigation = () => {
                     {item.label}
                   </motion.a>
                 ))}
-                <motion.button
-                  onClick={() => {
-                    setIsBookingModalOpen(true)
-                    setIsMobileMenuOpen(false)
-                  }}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="block w-full text-center px-6 py-4 bg-[#A97AFF] hover:bg-[#8B5FE6] text-ghost-white font-bold rounded-full text-xl transition-all duration-300"
-                >
-                  Termin buchen
-                </motion.button>
-                <motion.button
-                  onClick={handleContact}
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="block w-full text-center px-6 py-4 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-xl"
-                >
-                  Kontakt
-                </motion.button>
               </div>
             </motion.div>
           )}
@@ -124,7 +104,10 @@ const Navigation = () => {
 
             {/* Kontakt CTA Button */}
             <motion.button
-              onClick={handleContact}
+                  onClick={() => {
+                    setIsBookingModalOpen(true)
+                    setIsMobileMenuOpen(false)
+                  }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6 }}
@@ -132,23 +115,10 @@ const Navigation = () => {
               whileTap={{ scale: 0.95 }}
               className="ml-2 px-6 py-2 bg-gradient-to-r from-aquamarine to-tropical-indigo text-oxford-blue font-bold rounded-full text-sm shadow-lg hover:shadow-aquamarine/50 transition-all duration-300"
             >
-              Kontakt
+              Termin
             </motion.button>
           </div>
         </motion.div>
-
-        {/* Booking Button - Separate from Navigation */}
-        <motion.button
-          onClick={() => setIsBookingModalOpen(true)}
-          initial={{ opacity: 0, scale: 0.9, x: 20 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ delay: 0.8 }}
-          whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(169, 122, 255, 0.6)" }}
-          whileTap={{ scale: 0.95 }}
-          className="pointer-events-auto ml-4 px-6 py-4 bg-[#A97AFF] hover:bg-[#8B5FE6] text-ghost-white font-bold rounded-full text-sm shadow-2xl border border-[#A97AFF]/50 hover:border-[#A97AFF] transition-all duration-300"
-        >
-          Termin buchen
-        </motion.button>
       </motion.nav>
 
       {/* Booking Modal */}
