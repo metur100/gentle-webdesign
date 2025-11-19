@@ -22,13 +22,28 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
       document.body.style.overflow = 'hidden'
 
       return () => {
-        document.body.removeChild(script)
+        // Clean up script if it exists
+        if (document.body.contains(script)) {
+          document.body.removeChild(script)
+        }
         document.body.style.overflow = 'unset'
       }
     } else {
       document.body.style.overflow = 'unset'
     }
   }, [isOpen])
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape)
+      return () => document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isOpen, onClose])
 
   return (
     <AnimatePresence>
@@ -52,9 +67,9 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative w-full max-w-4xl bg-oxford-blue/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-ghost-white/20 overflow-hidden">
+            <div className="relative w-full max-w-6xl h-[90vh] bg-oxford-blue/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-ghost-white/20 overflow-hidden flex flex-col">
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-ghost-white/10">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-ghost-white/10 flex-shrink-0">
                 <h2 className="text-2xl font-bold text-ghost-white">
                   Erstgespräch buchen
                 </h2>
@@ -69,12 +84,14 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                 </motion.button>
               </div>
 
-              {/* TidyCal Embed */}
-              <div className="p-6 max-h-[70vh] overflow-y-auto">
-                <div
-                  className="tidycal-embed min-h-[600px]"
-                  data-path="Groupgentle"
-                />
+              {/* TidyCal Embed - Now with proper scrolling */}
+              <div className="flex-1 overflow-hidden">
+                <div className="h-full overflow-y-auto p-6">
+                  <div
+                    className="tidycal-embed min-h-[700px] w-full"
+                    data-path="webdesigngentle"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
