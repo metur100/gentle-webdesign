@@ -8,18 +8,23 @@ import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa'
 // Text content configuration for consistency
 const content = {
   footer: {
-    description: "Wir sind Ihr Partner für innovative Softwarelösungen, modernes Webdesign und KI-Integration. Von der Idee bis zur Umsetzung – wir gestalten digitale Zukunft.",
+    description: "Wir sind Ihr Partner für innovative Softwarelösungen, modernes Group und KI-Integration. Von der Idee bis zur Umsetzung – wir gestalten digitale Zukunft.",
     navigation: {
       title: "Navigation",
       items: ['Services', 'Work', 'Team', 'Reviews', 'FAQ']
     },
     services: {
       title: "Services",
-      items: ['Webdesign', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack']
+      items: ['Group', 'KI-Lösungen', 'Web-Apps', 'Azure Cloud', 'Full-Stack']
     },
     legal: {
       copyright: "Alle Rechte vorbehalten.",
-      links: ['Datenschutz', 'Impressum', 'AGB']
+      links: [
+        { text: 'Datenschutz', href: '/datenschutzerklaerung' },
+        { text: 'Impressum', href: '/impressum' },
+        { text: 'AGB', href: '/agb' },
+        { text: 'Barrierefreiheit', href: '/barrierefreiheit' }
+      ]
     }
   }
 }
@@ -56,7 +61,7 @@ const Footer = () => {
               >
                 <Image
                   src="/logo.svg"
-                  alt="Gentle Webdesign"
+                  alt="Gentle Group"
                   width={280}
                   height={94}
                   className="h-20 w-auto"
@@ -189,44 +194,97 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Copyright */}
+        {/* Legal Cockpit Seal & Copyright */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.5, type: "spring", stiffness: 100 }}
-          className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-lg"
+          className="flex flex-col gap-8"
         >
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+          {/* Legal Cockpit Seal - Centered and Compact */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex justify-center"
           >
-            © {currentYear} Gentle Webdesign. {content.footer.legal.copyright}
-          </motion.p>
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex gap-8"
-          >
-            {content.footer.legal.links.map((link, index) => (
-              <motion.a 
-                key={link}
+            <a
+              href="https://cockpit.legal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-block"
+            >
+              <div className="relative w-32 sm:w-40 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/legal-cockpit-seal.svg"
+                  alt="Legal Cockpit - Agentur-Partner Rechtssicherheit"
+                  width={160}
+                  height={160}
+                  className="w-full h-auto"
+                  priority={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-aquamarine/0 to-tropical-indigo/0 group-hover:from-aquamarine/5 group-hover:to-tropical-indigo/5 rounded-lg transition-all duration-300" />
+              </div>
+            </a>
+          </motion.div>
+
+          {/* Copyright and Legal Links */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-base">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="flex flex-col items-center md:items-start gap-2"
+            >
+              <p>© {currentYear} Gentle Group. {content.footer.legal.copyright}</p>
+              <p className="text-sm text-gray-500">
+                Entwickelt von{' '}
+                <a
+                  href="https://gentle-Group.com"
+                  className="text-aquamarine hover:text-tropical-indigo transition-colors duration-300"
+                >
+                  Gentle Group
+                </a>
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="flex flex-wrap justify-center gap-6"
+            >
+              {content.footer.legal.links.map((link, index) => (
+                <motion.a
+                  key={link.text}
+                  href={link.href}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.9 + (index * 0.1) }}
+                  className="hover:text-aquamarine transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {link.text}
+                </motion.a>
+              ))}
+              <motion.a
                 href="#"
+                data-cc="c-settings"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.8 + (index * 0.1) }}
+                transition={{ duration: 0.4, delay: 0.9 + (content.footer.legal.links.length * 0.1) }}
                 className="hover:text-aquamarine transition-colors duration-300"
                 whileHover={{ scale: 1.05 }}
               >
-                {link}
+                Cookie-Einstellungen
               </motion.a>
-            ))}
-          </motion.div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </footer>

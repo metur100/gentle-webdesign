@@ -1,6 +1,6 @@
-# Gentle Webdesign - Landing Page
+# Gentle Group - Landing Page
 
-A modern, animated landing page for Gentle Webdesign built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
+A modern, animated landing page for Gentle Group built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
 
 ## 🚀 Features
 
@@ -69,7 +69,7 @@ npm start
 ## 📁 Project Structure
 
 ```
-gentle-webdesign/
+gentle-Group/
 ├── app/
 │   ├── globals.css
 │   ├── layout.tsx
@@ -141,17 +141,17 @@ Edit `components/Footer.tsx` to update:
 Create a `.env.local` file for environment-specific variables:
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://gentle-webdesign.com
-NEXT_PUBLIC_CONTACT_EMAIL=info@gentle-webdesign.com
+NEXT_PUBLIC_SITE_URL=https://gentle-Group.com
+NEXT_PUBLIC_CONTACT_EMAIL=info@gentle-Group.com
 ```
 
 ## 📄 License
 
-© 2024 Gentle Webdesign. All rights reserved.
+© 2024 Gentle Group. All rights reserved.
 
 ## 🤝 Support
 
-For support, email info@gentle-webdesign.com or visit our website.
+For support, email info@gentle-Group.com or visit our website.
 
 ## ✨ Special Features
 
@@ -164,4 +164,4 @@ For support, email info@gentle-webdesign.com or visit our website.
 
 ---
 
-Built with ❤️ by Gentle Webdesign
+Built with ❤️ by Gentle Group

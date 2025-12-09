@@ -15,7 +15,7 @@ const content = {
     items: [
       {
         icon: HiCode,
-        title: 'Webdesign & Entwicklung',
+        title: 'Group & Entwicklung',
         description: 'Moderne, responsive Websites mit außergewöhnlichem Design und perfekter User Experience.',
         features: ['React & Next.js', 'Responsive Design', 'SEO-optimiert', 'Performance-First'],
       },

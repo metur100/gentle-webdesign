@@ -47,7 +47,7 @@ const AIQuestionnaire = () => {
 
   const questions = [
     {
-      question: "Hallo! Ich bin Fella, der AI-Assistent von Gentle Webdesign. Bevor wir starten, wie kann ich Sie persönlich ansprechen?",
+      question: "Hallo! Ich bin Fella, der AI-Assistent von Gentle Group. Bevor wir starten, wie kann ich Sie persönlich ansprechen?",
       key: 'name',
       type: 'text',
       placeholder: 'Ihr vollständiger Name...',
@@ -135,7 +135,7 @@ const AIQuestionnaire = () => {
       ],
     },
     {
-      question: "Wie sind Sie auf Gentle Webdesign aufmerksam geworden?",
+      question: "Wie sind Sie auf Gentle Group aufmerksam geworden?",
       key: 'reference',
       type: 'select',
       options: [
@@ -214,7 +214,7 @@ const AIQuestionnaire = () => {
         setIsTyping(true)
         
         setTimeout(() => {
-          addMessage('fella', "Vielen Dank für alle Informationen! Ich erstelle jetzt eine Zusammenfassung für das Gentle Webdesign Team. Sie erhalten innerhalb von 24 Stunden eine persönliche Rückmeldung.")
+          addMessage('fella', "Vielen Dank für alle Informationen! Ich erstelle jetzt eine Zusammenfassung für das Gentle Group Team. Sie erhalten innerhalb von 24 Stunden eine persönliche Rückmeldung.")
           setIsTyping(false)
           setIsCompleted(true)
           setTimeout(submitForm, 2000)
@@ -257,11 +257,11 @@ Projektanfrage erhalten (via Fella Chat):
 💬 Diese Anfrage wurde über unseren Fella Chat erstellt.
 
 Mit freundlichen Grüßen
-Gentle Webdesign Team
+Gentle Group Team
     `.trim())
 
     // Open email client
-    window.open(`mailto:info@gentle-webdesign.com?subject=${subject}&body=${body}`, '_blank')
+    window.open(`mailto:info@gentle-Group.com?subject=${subject}&body=${body}`, '_blank')
     
     // Reset after delay
     setTimeout(() => {
@@ -330,7 +330,7 @@ Gentle Webdesign Team
             </motion.div>
             <div className="flex-1">
               <h1 className="text-3xl lg:text-4xl font-bold text-ghost-white mb-2">Fella AI Assistant</h1>
-              <p className="text-ghost-white/60 text-lg">Gentle Webdesign • Ihr digitaler Projekt-Berater</p>
+              <p className="text-ghost-white/60 text-lg">Gentle Group • Ihr digitaler Projekt-Berater</p>
             </div>
             <div className="hidden md:flex flex-col items-end gap-2">
               <div className="px-5 py-2 bg-ghost-white/10 rounded-full text-sm text-ghost-white/80 font-medium">

@@ -9,6 +9,7 @@ const nextConfig = {
       'modelviewer.dev',
       'cdn.readyplayer.me',
       'models.readyplayer.me',
+      'images.unsplash.com',
       // Add any other domains you need for images
     ],
     remotePatterns: [
@@ -30,6 +31,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'models.readyplayer.me',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
         pathname: '**',
       },
     ],
